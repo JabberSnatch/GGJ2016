@@ -8,6 +8,11 @@ public class RotatingCameraController : MonoBehaviour
 
     [SerializeField] private float m_FocusPointMinDistanceToCenter = 0f;
     [SerializeField] private float m_FocusPointMaxDistanceToCenter = 0f;
+    [SerializeField] private float m_MinFOV = 60f;
+    [SerializeField] private float m_MaxFOV = 90f;
+
+    private float m_FocusPointDistanceToCenter;
+    private float m_FOV;
 
     [SerializeField] [Range(0f, 1f)] private float m_DampingFactor = 1f; // 0 is no movement, 1 is instant
 
@@ -23,12 +28,22 @@ public class RotatingCameraController : MonoBehaviour
     {
         m_Camera = GetComponent<Camera>();
         m_TargetPosition = transform.position;
+        UpdateFocusPointAndFOV();
         MoveToTargetPosition();
     }
 
     void Update()
     {
+        UpdateFocusPointAndFOV();
         MoveToTargetPosition();
+    }
+
+    private void UpdateFocusPointAndFOV()
+    {
+        m_FOV = Mathf.Lerp(m_MinFOV, m_MaxFOV, EverythingManager.Instance.PlayerPositionRatio);
+        m_FocusPointDistanceToCenter = Mathf.Lerp(m_FocusPointMinDistanceToCenter, m_FocusPointMaxDistanceToCenter, EverythingManager.Instance.PlayerPositionRatio);
+
+        m_Camera.fieldOfView = m_FOV;
     }
 
     private void MoveToTargetPosition()

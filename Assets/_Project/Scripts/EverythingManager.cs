@@ -27,6 +27,8 @@ public class EverythingManager : Singleton<EverythingManager>
     [SerializeField] private float m_PlayerMaxRadius;
     public float MaxRadius { get { return m_PlayerMaxRadius; } }
     [SerializeField] private float m_CrowdMaxRadius;
+    public float PlayerPositionRatio { get { return (m_Player.Offset - MinRadius) / (MaxRadius - MinRadius); } }
+
 
     [SerializeField] private GameObject                 m_PNJPrefab;
     [SerializeField] private float                      m_OffsetHalfRange = 5f;

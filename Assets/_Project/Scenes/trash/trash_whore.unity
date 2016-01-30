@@ -178,10 +178,11 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 180588, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
   m_PlayerSpawnOffset: 60
   m_PlayerSpawnAngle: 0
-  m_MinRadius: 50
-  m_MaxRadius: 70
+  m_CrowdMinRadius: 50
+  m_PlayerMaxRadius: 75
+  m_CrowdMaxRadius: 70
   m_PNJPrefab: {fileID: 163824, guid: ac261a353e066ef4b8b642a8c1824f0e, type: 2}
-  m_OffsetHalfRange: 10
+  m_OffsetHalfRange: 5
   m_AngleHalfRange: 20
   m_PNJPerSquareUnit: 1.5
 --- !u!4 &940831823
@@ -380,8 +381,10 @@ MonoBehaviour:
   m_Pitch: 45
   m_Distance: 5
   m_FocusPointMinDistanceToCenter: 45
-  m_FocusPointMaxDistanceToCenter: 0
-  m_DampingFactor: 1
+  m_FocusPointMaxDistanceToCenter: 50
+  m_MinFOV: 10
+  m_MaxFOV: 90
+  m_DampingFactor: 0.35
 --- !u!81 &1781959269
 AudioListener:
   m_ObjectHideFlags: 0
