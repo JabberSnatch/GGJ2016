@@ -4,7 +4,7 @@ using System;
 
 public delegate void TimerDefaultHandler(EventArgs e);
 
-public delegate void TimerStartHandler(EGamePadButton button, float timePeriod, EventArgs e);
+public delegate void TimerStartHandler(InputCombination button, float timePeriod, EventArgs e);
 
 public class TimeLine : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class TimeLine : MonoBehaviour
 		get { return _timers[_currentTimerIndex]; }
 	}
 
-	public EGamePadButton CurrentKey
+	public InputCombination CurrentKeyCombination
 	{
 		get { return _chain.Chain[_currentTimerIndex]; }
 	}
@@ -63,7 +63,7 @@ public class TimeLine : MonoBehaviour
 		}
 		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodStart && !_startReached) 
 		{
-			OnPeriodStart(CurrentKey, CurrentTimer.TimePeriod, EventArgs.Empty);
+			OnPeriodStart(CurrentKeyCombination, CurrentTimer.TimePeriod, EventArgs.Empty);
 			_startReached = true;
 		}
 	}
@@ -79,7 +79,7 @@ public class TimeLine : MonoBehaviour
 			handler(e);
 	}
 
-	protected virtual void OnPeriodStart(EGamePadButton button, float timePeriod, EventArgs e)
+	protected virtual void OnPeriodStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 		TimerStartHandler handler = TimePeriodStarted;
 

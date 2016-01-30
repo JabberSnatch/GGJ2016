@@ -19,7 +19,7 @@ public class TestController : MonoBehaviour
 		levelMgr.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnGate;
 	}
 
-	private void OnStart(EGamePadButton button, float timePeriod, EventArgs e)
+	private void OnStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 		Debug.Log("Time period started");
 	}
