@@ -10,6 +10,8 @@ public class NPCController : PolarCharacter
 
 	private bool _posing = false;
 
+	private float _detectionRadius = 0.0f;
+
 	[SerializeField]
 	private InputCombination _dissidentCombination;
     private InputCombination _expectedCombination;
@@ -30,14 +32,15 @@ public class NPCController : PolarCharacter
         LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded -= OnTimerEnd;
     }
 
-	public void YOLOTranscendSQUAD(List<EGamePadButton> dissidentCombination)
+	public void YOLOTranscendSQUAD(float detectionRadius, List<EGamePadButton> dissidentCombination)
 	{
 		_inputCombinationGao = Instantiate(new GameObject());
 		_inputCombinationGao.transform.SetParent(this.gameObject.transform);
 		_inputCombinationGao.AddComponent<InputCombination>();
 		_inputCombinationGao.GetComponent<InputCombination>().Populate(dissidentCombination.ToArray());
-
 		_dissidentCombination = _inputCombinationGao.GetComponent<InputCombination>();
+
+		_detectionRadius = detectionRadius;
 	}
 
 	public void YOLOBringMeBackToLifeSQUAD()
@@ -46,6 +49,8 @@ public class NPCController : PolarCharacter
 		_inputCombinationGao = null;
 
 		_dissidentCombination = null;
+
+		_detectionRadius = 0.0f;
 	}
 
 	override protected void Update()
@@ -60,6 +65,23 @@ public class NPCController : PolarCharacter
             {
                 ActivatePose();
             }
+		}
+
+		CheckForPlayer();
+	}
+
+	void CheckForPlayer()
+	{
+		int layerMask = 1 << LayerMask.NameToLayer("Player");
+
+		Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
+
+		if (colliders.Length != 0)
+		{
+			foreach (Collider col in colliders)
+			{
+				col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
+			}
 		}
 	}
 

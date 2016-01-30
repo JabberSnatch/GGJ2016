@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Animator))]
 public class PolarCharacter : MonoBehaviour
 {
     protected Animator      m_Animator;
@@ -86,6 +85,7 @@ public class PolarCharacter : MonoBehaviour
 
     public void SetAnimatorPoseElement(string _poseName, bool value, bool instant = false)
     {
+        if (m_Animator == null) return;
         if (instant)
         {
             m_Animator.SetTrigger(_poseName + "Instant");
