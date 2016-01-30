@@ -9,6 +9,8 @@ public class LevelManager : Singleton<LevelManager>
 
 	[SerializeField]
 	private List<GameObject> _levels;
+
+    private int _ritualsCount = 0;
 	#endregion
 
 	#region Properties
@@ -31,6 +33,11 @@ public class LevelManager : Singleton<LevelManager>
 	{
 		get { return _levels; }
 	}
+
+    public int RitualsCount
+    {
+        get { return _ritualsCount; }
+    }
 	#endregion
 
 	public void LoadLevel(int levelIndex)
