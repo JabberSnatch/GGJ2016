@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 using XInputDotNetPure;
 
@@ -23,8 +23,15 @@ public enum EGamePadButton
 
 public class Inputs : Singleton<Inputs>
 {
+	private List<bool> _snapshot = new List<bool>((int)EGamePadButton.NbStates - 1);
+
 	private GamePadState _oldState;
 	private GamePadState _newState;
+
+	public List<bool> Snapshot
+	{
+		get { return _snapshot; }
+	}
 
 	public bool IsPressed(EGamePadButton button)
 	{
@@ -160,5 +167,22 @@ public class Inputs : Singleton<Inputs>
 	{
 		_oldState = _newState;
 		_newState = GamePad.GetState(PlayerIndex.One);
+
+		UpdateSnapshot();
+	}
+
+	void UpdateSnapshot()
+	{
+		_snapshot[0] = _newState.Buttons.A == ButtonState.Pressed ? true : false;
+		_snapshot[1] = _newState.Buttons.B == ButtonState.Pressed ? true : false;
+		_snapshot[2] = _newState.Buttons.X == ButtonState.Pressed ? true : false;
+		_snapshot[3] = _newState.Buttons.Y == ButtonState.Pressed ? true : false;
+		_snapshot[4] = _newState.Buttons.LeftStick == ButtonState.Pressed ? true : false;
+		_snapshot[6] = _newState.Buttons.LeftShoulder == ButtonState.Pressed ? true : false;
+		_snapshot[7] = _newState.Buttons.RightStick == ButtonState.Pressed ? true : false;
+		_snapshot[8] = _newState.Buttons.RightShoulder == ButtonState.Pressed ? true : false;
+		_snapshot[9] = _newState.Buttons.Start == ButtonState.Pressed ? true : false;
+		_snapshot[10] = _newState.Buttons.Back == ButtonState.Pressed ? true : false;
+		_snapshot[11] = _newState.Buttons.Guide == ButtonState.Pressed ? true : false;
 	}
 };
