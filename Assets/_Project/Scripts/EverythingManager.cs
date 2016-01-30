@@ -221,7 +221,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void RebelUpdateSubroutine()
     {
-        if (m_RitualCountUntilFirstRebel <= LevelManager.Instance.RitualsCount) return;
+        if (m_RitualCountUntilFirstRebel < LevelManager.Instance.RitualsCount) return;
 
         if (m_Rebel == null)
         {
@@ -233,7 +233,6 @@ public class EverythingManager : Singleton<EverythingManager>
         }
         else
         {
-
         }
     }
 
