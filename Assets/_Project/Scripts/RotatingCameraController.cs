@@ -16,11 +16,12 @@ public class RotatingCameraController : MonoBehaviour
     private Transform                   m_WorldCenter;
     private Vector3                     m_TargetPosition;
 
+    public Transform WorldCenter { set { m_WorldCenter = value; } }
+    public RotatingPlayerController Subject { set { m_Subject = value; MoveToTargetPosition(); } }
+
     void Awake()
     {
         m_Camera = GetComponent<Camera>();
-        m_Subject = EverythingManager.Instance.Player;
-        m_WorldCenter = EverythingManager.Instance.WorldCenter;
         m_TargetPosition = transform.position;
         MoveToTargetPosition();
     }
@@ -32,19 +33,22 @@ public class RotatingCameraController : MonoBehaviour
 
     private void MoveToTargetPosition()
     {
-        float radPitch = Mathf.Deg2Rad * (-m_Pitch + 90f);
+        if (m_Subject != null)
+        {
+            float radPitch = Mathf.Deg2Rad * (-m_Pitch + 90f);
 
-        Vector3 targetToCenter = (m_WorldCenter.position - m_Subject.transform.position).normalized;
-        Quaternion forwardToDirection = Quaternion.FromToRotation(Vector3.forward, targetToCenter);
+            Vector3 targetToCenter = (m_WorldCenter.position - m_Subject.transform.position).normalized;
+            Quaternion forwardToDirection = Quaternion.FromToRotation(Vector3.forward, targetToCenter);
 
-        Vector3 normalizedPosition = new Vector3(0f, Mathf.Cos(radPitch), -Mathf.Sin(radPitch));
-        m_TargetPosition = m_Subject.transform.position + forwardToDirection * (normalizedPosition * m_Distance);
-        transform.position = Vector3.Lerp(transform.position, m_TargetPosition, m_DampingFactor);
+            Vector3 normalizedPosition = new Vector3(0f, Mathf.Cos(radPitch), -Mathf.Sin(radPitch));
+            m_TargetPosition = m_Subject.transform.position + forwardToDirection * (normalizedPosition * m_Distance);
+            transform.position = Vector3.Lerp(transform.position, m_TargetPosition, m_DampingFactor);
 
-        Vector3 focusPoint = m_WorldCenter.position - targetToCenter * m_FocusPointMinDistanceToCenter;
-        Vector3 lookDirection = focusPoint - m_TargetPosition;
-        Vector3 up = Vector3.Cross(lookDirection, m_Subject.transform.right);
-        transform.rotation = Quaternion.LookRotation(lookDirection);
+            Vector3 focusPoint = m_WorldCenter.position - targetToCenter * m_FocusPointMinDistanceToCenter;
+            Vector3 lookDirection = focusPoint - m_TargetPosition;
+            Vector3 up = Vector3.Cross(lookDirection, m_Subject.transform.right);
+            transform.rotation = Quaternion.LookRotation(lookDirection);
+        }
     }
 
 }
