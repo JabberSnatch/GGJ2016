@@ -87,11 +87,11 @@ public class NPCController : PolarCharacter
 
     public void ActivatePose(bool instant = false)
     {
-        List<string> poseElements;
+        List<string> poseElements = new List<string>();
 
         if (_dissidentCombination)
             poseElements = _dissidentCombination.ToAnimatorGrammar();
-        else
+        else if (_expectedCombination)
             poseElements = _expectedCombination.ToAnimatorGrammar();
 
         foreach(var pose in poseElements)
@@ -104,11 +104,11 @@ public class NPCController : PolarCharacter
 
     public void DeactivatePose()
     {
-        List<string> poseElements;
+        List<string> poseElements = new List<string>();
 
         if (_dissidentCombination)
             poseElements = _dissidentCombination.ToAnimatorGrammar();
-        else
+        else if(_expectedCombination)
             poseElements = _expectedCombination.ToAnimatorGrammar();
 
         foreach (var pose in poseElements)

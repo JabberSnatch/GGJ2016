@@ -19,6 +19,7 @@ public class EverythingManager : Singleton<EverythingManager>
     [SerializeField] private float                      m_PlayerSpawnAngle;
     private RotatingPlayerController                    m_Player;
     private Vector2                                     m_OldPlayerPos;
+    private bool                                        m_PlayerIsOutcast = false;
     public RotatingPlayerController Player { get { return m_Player; } }
 
     [SerializeField] private float m_PlayerMinRadius;
@@ -81,6 +82,7 @@ public class EverythingManager : Singleton<EverythingManager>
         }
 
         RebelUpdateSubroutine();
+        BooOutcastPlayer();
     }
 
     private float ComputeArea(CircularArea _source, float _angleBias = 0f)
@@ -187,6 +189,26 @@ public class EverythingManager : Singleton<EverythingManager>
         foreach(var npc in removeNPCs)
         {
             m_NPCs.Remove(npc);
+        }
+    }
+
+    private void BooOutcastPlayer()
+    {
+        if (Player.Offset > m_CrowdMaxRadius || Player.Offset < m_CrowdMinRadius)
+        {
+            foreach(var npc in m_NPCs)
+                npc.LookAt(Player.transform.position);
+
+            if (!m_PlayerIsOutcast) m_PlayerIsOutcast = true;
+        }
+        else
+        {
+            if (m_PlayerIsOutcast)
+            {
+                foreach (var npc in m_NPCs)
+                    npc.LookAt(m_WorldCenter.position);
+                m_PlayerIsOutcast = false;
+            }
         }
     }
 
