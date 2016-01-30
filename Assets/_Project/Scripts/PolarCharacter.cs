@@ -83,4 +83,15 @@ public class PolarCharacter : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(m_LookDirection, Vector3.up);
         m_TargetRotation = transform.rotation;
     }
+
+    public void SetAnimatorPoseElement(string _poseName, bool value, bool instant = false)
+    {
+        if (instant)
+        {
+            m_Animator.SetTrigger(_poseName + "Instant");
+            m_Animator.SetBool(_poseName, true);
+        }
+        else
+            m_Animator.SetBool(_poseName, value);
+    }
 }

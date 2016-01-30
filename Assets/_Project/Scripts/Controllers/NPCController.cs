@@ -12,6 +12,7 @@ public class NPCController : PolarCharacter
 
 	[SerializeField]
 	private InputCombination _dissidentCombination;
+    private InputCombination _expectedCombination;
 
 	private GameObject _inputCombinationGao;
 
@@ -21,6 +22,13 @@ public class NPCController : PolarCharacter
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
 	}
+
+    void OnDestroy()
+    {
+        LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted -= OnTimePeriodStart;
+        LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded -= OnTimePeriodEnd;
+        LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded -= OnTimerEnd;
+    }
 
 	public void YOLOTranscendSQUAD(List<EGamePadButton> dissidentCombination)
 	{
@@ -44,51 +52,57 @@ public class NPCController : PolarCharacter
 	{
 		base.Update();
 
-		if (_inTimePeriod)
-		{
-			// do the random to determine the amount of time to wait for
-			// substract the random found to the time Period
-			// then each frame it gets subtracted by the delta time resulting in 0 in a random time
-
-			if (_dissidentCombination)
-			{
-				// depending on the random, do the dissident behavior
-				if (_timePeriod <= 0.0f)
-				{
-					//trigger animation and pose
-					_posing = true;
-				}
-			}
-			else
-			{
-				// depending on the random, do the programmed behavior
-				if (_timePeriod <= 0.0f)
-				{
-					// trigger animation and pose
-					_posing = true;
-				}
-			}
-		}
-		else if (_timePeriodEnded)
-		{
-			// if the time period has ended and it has not yet activated (in case, shouldn't happen with the random but oh well)
-			// force trigger it
-			if (!_posing)
-			{
-				// pose
-				_posing = true;
-			}
-		}
-
 		_timePeriod -= Time.deltaTime;
+
+        if (_inTimePeriod)
+		{
+            if(_timePeriod <= 0f)
+            {
+                ActivatePose();
+            }
+		}
 	}
+
+    public void ActivatePose(bool instant = false)
+    {
+        List<string> poseElements;
+
+        if (_dissidentCombination)
+            poseElements = _dissidentCombination.ToAnimatorGrammar();
+        else
+            poseElements = _expectedCombination.ToAnimatorGrammar();
+
+        foreach(var pose in poseElements)
+        {
+            SetAnimatorPoseElement(pose, true, instant);
+        }
+
+        _posing = true;
+    }
+
+    public void DeactivatePose()
+    {
+        List<string> poseElements;
+
+        if (_dissidentCombination)
+            poseElements = _dissidentCombination.ToAnimatorGrammar();
+        else
+            poseElements = _expectedCombination.ToAnimatorGrammar();
+
+        foreach (var pose in poseElements)
+        {
+            SetAnimatorPoseElement(pose, false);
+        }
+
+        _posing = false;
+    }
 
 	#region Subscribers
 	private void OnTimePeriodStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 		_inTimePeriod = true;
-		_timePeriod = timePeriod;
-
+        _expectedCombination = button;
+		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)
@@ -101,8 +115,8 @@ public class NPCController : PolarCharacter
 	private void OnTimerEnd(EventArgs e)
 	{
 		// release their state of animations
+        DeactivatePose();
 		_timePeriodEnded = false;
-		_posing = false;
 	}
 	#endregion
 }

@@ -9,9 +9,9 @@ public enum EGamePadButton
 	B,
 	X,
 	Y,
-	LeftStick,
+	LeftTrigger,
 	LeftShoulder,
-	RightStick,
+	RightTrigger,
 	RightShoulder,
 	Start,
 	Back,
@@ -46,11 +46,11 @@ public class Inputs : Singleton<Inputs>
 			case 3:
 				return _newState.Buttons.Y == ButtonState.Pressed;
 			case 4:
-				return _newState.Buttons.LeftStick == ButtonState.Pressed;
+				return _newState.Triggers.Left >= 0.8f;
 			case 5:
 				return _newState.Buttons.LeftShoulder == ButtonState.Pressed;
 			case 6:
-				return _newState.Buttons.RightStick == ButtonState.Pressed;
+				return _newState.Triggers.Right >= 0.8f;
 			case 7:
 				return _newState.Buttons.RightShoulder == ButtonState.Pressed;
 			case 8:
@@ -77,11 +77,11 @@ public class Inputs : Singleton<Inputs>
 			case 3:
 				return _newState.Buttons.Y == ButtonState.Released;
 			case 4:
-				return _newState.Buttons.LeftStick == ButtonState.Released;
+				return _newState.Triggers.Left < 0.8f;
 			case 5:
 				return _newState.Buttons.LeftShoulder == ButtonState.Released;
 			case 6:
-				return _newState.Buttons.RightStick == ButtonState.Released;
+				return _newState.Triggers.Right < 0.8f;
 			case 7:
 				return _newState.Buttons.RightShoulder == ButtonState.Released;
 			case 8:

@@ -33,7 +33,7 @@ public class EverythingManager : Singleton<EverythingManager>
     [SerializeField] private float                      m_OffsetHalfRange = 5f;
     [SerializeField] [Range(0f, 180f)] private float    m_AngleHalfRange = 5f;
     [SerializeField] private float                      m_NPCPerSquareUnit = 5f;
-    private List<PolarCharacter>                        m_NPCs = new List<PolarCharacter>();
+    private List<NPCController>                         m_NPCs = new List<NPCController>();
     private CircularArea                                m_LastArea = new CircularArea();
 
     [SerializeField] private float              m_RebelMinElectionDelay;
@@ -41,7 +41,7 @@ public class EverythingManager : Singleton<EverythingManager>
     [SerializeField] private int                m_RitualCountUntilFirstRebel;
     [SerializeField] private float              m_RebelMinOffsetFromPlayer;
     [SerializeField] private float              m_RebelMinAngleFromPlayer;
-    private PolarCharacter                      m_Rebel = null;
+    private NPCController                       m_Rebel = null;
     private float                               m_RebelTimer = 0f;
     private float                               m_RebelElectionDelay;
 
@@ -158,7 +158,7 @@ public class EverythingManager : Singleton<EverythingManager>
                 {
                     GameObject instance = (GameObject)Instantiate(m_NPCPrefab, NPCpos, Quaternion.LookRotation(m_WorldCenter.position - NPCpos, Vector3.up));
 
-                    PolarCharacter NPC = instance.AddComponent<PolarCharacter>();
+                    NPCController NPC = instance.AddComponent<NPCController>();
                     NPC.Initialize(angle, offset, m_WorldCenter);
 
                     m_NPCs.Add(NPC);
@@ -169,7 +169,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void DestroyOutdatedNPCs(CircularArea testArea)
     {
-        List<PolarCharacter> removeNPCs = new List<PolarCharacter>();
+        List<NPCController> removeNPCs = new List<NPCController>();
 
         foreach(var npc in m_NPCs)
         {
@@ -199,7 +199,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void RebelUpdateSubroutine()
     {
-        //if (m_RitualCountUntilFirstRebel <= LevelManager.Instance.RitualsCount) return;
+        if (m_RitualCountUntilFirstRebel <= LevelManager.Instance.RitualsCount) return;
 
         if (m_Rebel == null)
         {
@@ -217,7 +217,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void ElectRebel()
     {
-        List<PolarCharacter> eligiblesNPC = new List<PolarCharacter>();
+        List<NPCController> eligiblesNPC = new List<NPCController>();
 
         foreach(var npc in m_NPCs)
         {

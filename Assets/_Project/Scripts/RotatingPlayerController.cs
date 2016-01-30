@@ -8,7 +8,6 @@ public class RotatingPlayerController : PolarCharacter
     [SerializeField] private float m_Speed = 5f; // Speed in meters per sec
     [SerializeField] private float m_ReducedSpeed = 1f;
 
-
     private Vector3 m_TargetVelocity = Vector3.zero;
     private Vector3 m_Velocity = Vector3.zero;
 
