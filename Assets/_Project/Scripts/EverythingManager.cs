@@ -10,5 +10,7 @@ public class EverythingManager : Singleton<EverythingManager>
     public RotatingPlayerController Player { get { return m_Player; } }
 
     [SerializeField] private float m_MinRadius;
+    public float MinRadius { get { return m_MinRadius; } }
     [SerializeField] private float m_MaxRadius;
+    public float MaxRadius { get { return m_MaxRadius; } }
 }

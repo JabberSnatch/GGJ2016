@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WorldCenter: {fileID: 1473692089}
-  m_Player: {fileID: 1901921850}
-  m_MinRadius: 0
-  m_MaxRadius: 0
+  m_Player: {fileID: 1901921851}
+  m_MinRadius: 50
+  m_MaxRadius: 70
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0
@@ -367,6 +367,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Pitch: 45
   m_Distance: 5
+  m_FocusPointMinDistanceToCenter: 45
+  m_FocusPointMaxDistanceToCenter: 0
   m_DampingFactor: 1
 --- !u!81 &1781959269
 AudioListener:
@@ -505,7 +507,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1901921846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.07116699, y: 1.00008106, z: -3.21540833}
+  m_LocalPosition: {x: 6.38000011, y: 1.00008106, z: 4.32999992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
