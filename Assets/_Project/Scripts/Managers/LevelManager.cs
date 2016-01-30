@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
 	#region Fields
 	private int _currentLevelIndex = -1;
@@ -20,6 +20,11 @@ public class LevelManager : MonoBehaviour
 	public GameObject CurrentLevel
 	{
 		get { return _currentLevel; }
+	}
+
+	public GameObject CurrentTimeline
+	{
+		get { return _currentLevel.GetComponent<LevelController>().Timeline; }
 	}
 
 	public List<GameObject> Levels

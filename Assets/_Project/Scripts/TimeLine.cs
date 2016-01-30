@@ -21,6 +21,10 @@ public class TimeLine : MonoBehaviour
 	public event TimerStartHandler TimePeriodStarted;
 	public event TimerDefaultHandler TimePeriodEnded;
 	public event TimerDefaultHandler TimerEnded;
+
+	private bool _startReached = false;
+	private bool _endReached = false;
+	private bool _gateReached = false;
 	#endregion
 
 
@@ -38,17 +42,26 @@ public class TimeLine : MonoBehaviour
 
 
 	#region Methods
-	void Update()
+	void FixedUpdate()
 	{
-		_currentElapsedTime += Time.unscaledDeltaTime;
+		_currentElapsedTime += Time.deltaTime;
 
-		if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodStart) OnPeriodStart(CurrentKey, CurrentTimer.TimePeriod, EventArgs.Empty);
-		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodEnd) OnPeriodEnd(EventArgs.Empty);
-		else if (_currentElapsedTime >= CurrentTimer.TotalTimeCount)
+		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount && !_startReached)
 		{
 			OnTimerEnds(EventArgs.Empty);
 			++_currentTimerIndex;
 			_currentElapsedTime = CurrentTimer.TotalTimeCount - _currentElapsedTime;
+			_startReached = true;
+		}
+		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodEnd && !_endReached)
+		{
+			OnPeriodEnd(EventArgs.Empty);
+			_endReached = true;
+		}
+		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodStart && !_gateReached) 
+		{
+			OnPeriodStart(CurrentKey, CurrentTimer.TimePeriod, EventArgs.Empty);
+			_gateReached = true;
 		}
 	}
 	#endregion
