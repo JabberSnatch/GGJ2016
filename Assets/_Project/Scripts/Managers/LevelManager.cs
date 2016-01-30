@@ -40,6 +40,11 @@ public class LevelManager : Singleton<LevelManager>
     }
 	#endregion
 
+	void Start()
+	{
+		LoadLevel(0);
+	}
+
 	public void LoadLevel(int levelIndex)
 	{
 		UnloadLevel();
