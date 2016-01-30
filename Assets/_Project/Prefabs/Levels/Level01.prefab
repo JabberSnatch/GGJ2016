@@ -341,10 +341,10 @@ MonoBehaviour:
   timeLine: {fileID: 186086}
   _chain:
   - {fileID: 11483138, guid: 66505d65dac62f9439da28ad113aeb2c, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11483138, guid: 66505d65dac62f9439da28ad113aeb2c, type: 2}
+  - {fileID: 11483138, guid: 66505d65dac62f9439da28ad113aeb2c, type: 2}
+  - {fileID: 11483138, guid: 66505d65dac62f9439da28ad113aeb2c, type: 2}
+  - {fileID: 11483138, guid: 66505d65dac62f9439da28ad113aeb2c, type: 2}
 --- !u!114 &11458072
 MonoBehaviour:
   m_ObjectHideFlags: 1

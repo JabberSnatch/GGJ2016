@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &177682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 406778}
+  - 114: {fileID: 11490190}
+  m_Layer: 0
+  m_Name: EverythingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406778
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.621578, y: 2.5929356, z: -9.421196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11490190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aee15920a5db41438d9eda7cc5d8510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WorldCenter: {fileID: 0}
+  m_Camera: {fileID: 0}
+  m_PlayerPrefab: {fileID: 180588, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+  m_PlayerSpawnOffset: 85
+  m_PlayerSpawnAngle: 93
+  m_PlayerMinRadius: 82
+  m_PlayerMaxRadius: 97
+  m_CrowdMinRadius: 83
+  m_CrowdMaxRadius: 96
+  m_NPCPrefab: {fileID: 163824, guid: ac261a353e066ef4b8b642a8c1824f0e, type: 2}
+  m_OffsetHalfRange: 5
+  m_AngleHalfRange: 20
+  m_NPCPerSquareUnit: 0.4
+  m_RebelMinElectionDelay: 0
+  m_RebelMaxElectionDelay: 0
+  m_RitualCountUntilFirstRebel: 0
+  m_RebelMinOffsetFromPlayer: 0
+  m_RebelMinAngleFromPlayer: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 177682}
+  m_IsPrefabParent: 1

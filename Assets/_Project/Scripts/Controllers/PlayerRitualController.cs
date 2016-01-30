@@ -14,9 +14,9 @@ public class PlayerRitualController : MonoBehaviour
 
 	void Start()
 	{
-		LevelManager.Instance.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
-		LevelManager.Instance.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
-		LevelManager.Instance.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
+		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
+		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
+		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
 	}
 
 	void Update()

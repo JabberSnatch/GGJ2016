@@ -136,7 +136,7 @@ public class EverythingManager : Singleton<EverythingManager>
     {
         float surface = Mathf.Abs(ComputeArea(_area));
         int npcCount = Mathf.RoundToInt(surface * m_NPCPerSquareUnit);
-        Debug.Log(surface + "; " + npcCount);
+        //Debug.Log(surface + "; " + npcCount);
 
         for (int i = 0; i < npcCount; ++i)
         {
