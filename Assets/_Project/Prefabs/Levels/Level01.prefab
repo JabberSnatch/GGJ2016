@@ -339,7 +339,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLine: {fileID: 186086}
-  _chain: 0000000000000000010000000100000003000000
+  _chain:
+  - {fileID: 11483138, guid: 66505d65dac62f9439da28ad113aeb2c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11458072
 MonoBehaviour:
   m_ObjectHideFlags: 1
