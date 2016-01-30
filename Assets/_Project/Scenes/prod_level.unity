@@ -498,6 +498,8 @@ MonoBehaviour:
   m_RitualCountUntilFirstRebel: 0
   m_RebelMinOffsetFromPlayer: 0
   m_RebelMinAngleFromPlayer: 0
+  m_RebelDetectionRadius: 2
+  m_RebelGatesToLive: 1
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0

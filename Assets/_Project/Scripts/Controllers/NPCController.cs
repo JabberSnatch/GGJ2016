@@ -81,25 +81,44 @@ public class NPCController : PolarCharacter
             }
 		}
 
-		CheckForPlayer();
+		if (_isRebel)
+		{
+			Debug.Log(gameObject.transform.position);
+			CheckForPlayer();
+		}
 	}
 
 	void CheckForPlayer()
 	{
-		int layerMask = 1 << LayerMask.NameToLayer("Player");
+		RotatingPlayerController player = EverythingManager.Instance.Player;
 
-		Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
+		Vector3 sub = player.transform.position - gameObject.transform.position;
+		Debug.Log(sub.magnitude);
+		if (sub.magnitude <= _detectionRadius)
+			Debug.Log("Yessss");
 
-		if (colliders.Length != 0)
-		{
-			foreach (Collider col in colliders)
-			{
-				col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
-			}
-		}
+		//int layerMask = 1 << LayerMask.NameToLayer("Player");
+
+		//Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
+
+		//if (colliders.Length != 0)
+		//{
+		//	foreach (Collider col in colliders)
+		//	{
+		//		col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
+		//	}
+		//}
+		//else
+		//{
+		//	foreach (Collider col in colliders)
+		//	{
+		//		col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = false;
+		//	}
+		//}
+
 	}
 
-    public void ActivatePose(bool instant = false)
+	public void ActivatePose(bool instant = false)
     {
         List<string> poseElements = new List<string>();
 
