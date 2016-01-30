@@ -46,27 +46,30 @@ public class TimeLine : MonoBehaviour
 	{
 		_currentElapsedTime += Time.deltaTime;
 
-		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount && !_startReached)
+		//Debug.Log(_currentElapsedTime);
+
+		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount && !_gateReached)
 		{
 			OnTimerEnds(EventArgs.Empty);
 			++_currentTimerIndex;
 			_currentElapsedTime = CurrentTimer.TotalTimeCount - _currentElapsedTime;
-			_startReached = true;
+			_startReached = false;
+			_endReached = false;
 		}
 		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodEnd && !_endReached)
 		{
 			OnPeriodEnd(EventArgs.Empty);
 			_endReached = true;
 		}
-		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodStart && !_gateReached) 
+		else if (_currentElapsedTime >= CurrentTimer.WaitingTimePeriodStart && !_startReached) 
 		{
 			OnPeriodStart(CurrentKey, CurrentTimer.TimePeriod, EventArgs.Empty);
-			_gateReached = true;
+			_startReached = true;
 		}
 	}
 	#endregion
 
-
+	
 	#region Publishers
 	protected virtual void OnTimerEnds(EventArgs e)
 	{

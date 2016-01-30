@@ -31,7 +31,7 @@ public class GamePadController : MonoBehaviour {
                            Vector3.right * GPState.ThumbSticks.Left.X) * Time.deltaTime * m_Speed;
 
         m_Velocity = Vector3.Lerp(m_Velocity, m_TargetVelocity, m_DampingFactor);
-        Debug.Log(m_Velocity);
+        //Debug.Log(m_Velocity);
 
         transform.position += m_Velocity; 
     }
