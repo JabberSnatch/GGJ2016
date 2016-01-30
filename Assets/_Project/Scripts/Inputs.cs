@@ -16,6 +16,7 @@ public enum EGamePadButton
 	Start,
 	Back,
 	Guide,
+	None,
 
 	NbStates
 }

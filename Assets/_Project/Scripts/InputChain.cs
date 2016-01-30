@@ -8,14 +8,19 @@ public class InputChain : MonoBehaviour
 	public GameObject timeLine;
 
 	[SerializeField]
-	private List<EGamePadButton> _chain;
+	private List<InputCombination> _chain;
 
-	public List<EGamePadButton> Chain 
+	public List<InputCombination> Chain 
 	{
 		get { return _chain; }
 	}
 
-	public void RefreshInputChain(params EGamePadButton[] inputs)
+	public void NullifyCombination(int index)
+	{
+		_chain[index].Populate(EGamePadButton.None);
+	}
+
+	public void RefreshInputChain(params InputCombination[] inputs)
 	{
 		_chain.Clear();
 		int count = 0;
