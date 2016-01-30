@@ -22,10 +22,11 @@ public class EverythingManager : Singleton<EverythingManager>
     private Vector2                                     m_OldPlayerPos;
     public RotatingPlayerController Player { get { return m_Player; } }
 
-    [SerializeField] private float m_MinRadius;
-    public float MinRadius { get { return m_MinRadius; } }
-    [SerializeField] private float m_MaxRadius;
-    public float MaxRadius { get { return m_MaxRadius; } }
+    [SerializeField] private float m_CrowdMinRadius;
+    public float MinRadius { get { return m_CrowdMinRadius; } }
+    [SerializeField] private float m_PlayerMaxRadius;
+    public float MaxRadius { get { return m_PlayerMaxRadius; } }
+    [SerializeField] private float m_CrowdMaxRadius;
 
     [SerializeField] private GameObject                 m_PNJPrefab;
     [SerializeField] private float                      m_OffsetHalfRange = 5f;
@@ -47,7 +48,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
         m_LastArea.AngleMinMax.x = Player.Angle - m_AngleHalfRange;
         m_LastArea.AngleMinMax.y = Player.Angle + m_AngleHalfRange;
-        m_LastArea.OffsetMinMax.x = Player.Offset - m_OffsetHalfRange;
+        m_LastArea.OffsetMinMax.x = m_CrowdMinRadius;
         m_LastArea.OffsetMinMax.y = Player.Offset + m_OffsetHalfRange;
 
         PopulateArea(m_LastArea);
@@ -57,7 +58,7 @@ public class EverythingManager : Singleton<EverythingManager>
     {
         CircularArea nextArea = new CircularArea();
         nextArea.AngleMinMax = new Vector2(Player.Angle - m_AngleHalfRange, Player.Angle + m_AngleHalfRange);
-        nextArea.OffsetMinMax = new Vector2(Player.Offset - m_OffsetHalfRange, Player.Offset + m_OffsetHalfRange);
+        nextArea.OffsetMinMax = new Vector2(m_CrowdMinRadius, Player.Offset + m_OffsetHalfRange);
 
         if (nextArea.AngleMinMax != m_LastArea.AngleMinMax || nextArea.OffsetMinMax != m_LastArea.OffsetMinMax)
             PopulateDiffArea(nextArea);
@@ -124,7 +125,7 @@ public class EverythingManager : Singleton<EverythingManager>
             float angle = Random.Range(_area.AngleMinMax.x, _area.AngleMinMax.y);
             float offset = Random.Range(_area.OffsetMinMax.x, _area.OffsetMinMax.y);
 
-            if (offset < m_MaxRadius && offset > m_MinRadius)
+            if (offset < m_CrowdMaxRadius && offset > m_CrowdMinRadius)
             {
                 Vector3 PNJpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
                 GameObject instance = (GameObject)Instantiate(m_PNJPrefab, PNJpos, Quaternion.LookRotation(m_WorldCenter.position - PNJpos, Vector3.up));
