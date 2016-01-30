@@ -14,8 +14,6 @@ public class NPCController : PolarCharacter
 	private float _detectionRadius = 0.0f;
     private float _gatesToLive = 0;
 
-	[SerializeField]
-	private InputCombination _dissidentCombination;
     private InputCombination _expectedCombination;
 
 	private GameObject _inputCombinationGao;
@@ -60,7 +58,6 @@ public class NPCController : PolarCharacter
 		Destroy(_inputCombinationGao);
 		_inputCombinationGao = null;
 
-		_dissidentCombination = null;
         _isRebel = false;
         _gatesToLive = 0;
 
@@ -103,9 +100,7 @@ public class NPCController : PolarCharacter
     {
         List<string> poseElements = new List<string>();
 
-        if (_dissidentCombination)
-            poseElements = _dissidentCombination.ToAnimatorGrammar();
-        else if (_expectedCombination)
+        if (_expectedCombination)
             poseElements = _expectedCombination.ToAnimatorGrammar();
 
         foreach(var pose in poseElements)
@@ -120,9 +115,7 @@ public class NPCController : PolarCharacter
     {
         List<string> poseElements = new List<string>();
 
-        if (_dissidentCombination)
-            poseElements = _dissidentCombination.ToAnimatorGrammar();
-        else if(_expectedCombination)
+        if(_expectedCombination)
             poseElements = _expectedCombination.ToAnimatorGrammar();
 
         foreach (var pose in poseElements)
@@ -142,7 +135,7 @@ public class NPCController : PolarCharacter
 
         if (_isRebel)
         {
-            button.Randomize();
+            _expectedCombination.Randomize();
         }
 	}
 

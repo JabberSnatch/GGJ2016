@@ -47,6 +47,7 @@ public class EverythingManager : Singleton<EverythingManager>
     private NPCController                       m_Rebel = null;
     private float                               m_RebelTimer = 0f;
     private float                               m_RebelElectionDelay;
+    public NPCController Rebel { get { return m_Rebel; } }
 
     void Awake()
     {
