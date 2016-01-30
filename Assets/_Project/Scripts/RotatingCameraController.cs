@@ -6,6 +6,9 @@ public class RotatingCameraController : MonoBehaviour
     [SerializeField] private float m_Pitch = 45f;
     [SerializeField] private float m_Distance = 5f;
 
+    public float Pitch { get { return m_Pitch; } }
+    public float Distance { get { return m_Distance; } }
+
     [SerializeField] private float m_FocusPointMinDistanceToCenter = 0f;
     [SerializeField] private float m_FocusPointMaxDistanceToCenter = 0f;
     [SerializeField] private float m_MinFOV = 60f;

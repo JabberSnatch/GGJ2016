@@ -17,27 +17,33 @@ public class EverythingManager : Singleton<EverythingManager>
     [SerializeField] private GameObject                 m_PlayerPrefab;
     [SerializeField] private float                      m_PlayerSpawnOffset;
     [SerializeField] private float                      m_PlayerSpawnAngle;
-
     private RotatingPlayerController                    m_Player;
     private Vector2                                     m_OldPlayerPos;
     public RotatingPlayerController Player { get { return m_Player; } }
 
     [SerializeField] private float m_PlayerMinRadius;
-    public float MinRadius { get { return m_PlayerMinRadius; } }
     [SerializeField] private float m_PlayerMaxRadius;
-    public float MaxRadius { get { return m_PlayerMaxRadius; } }
     [SerializeField] private float m_CrowdMinRadius;
     [SerializeField] private float m_CrowdMaxRadius;
+    public float MinRadius { get { return m_PlayerMinRadius; } }
+    public float MaxRadius { get { return m_PlayerMaxRadius; } }
     public float PlayerPositionRatio { get { return (m_Player.Offset - MinRadius) / (MaxRadius - MinRadius); } }
 
-
-    [SerializeField] private GameObject                 m_PNJPrefab;
+    [SerializeField] private GameObject                 m_NPCPrefab;
     [SerializeField] private float                      m_OffsetHalfRange = 5f;
     [SerializeField] [Range(0f, 180f)] private float    m_AngleHalfRange = 5f;
-    [SerializeField] private float                      m_PNJPerSquareUnit = 5f;
-    private List<PolarCharacter>                        m_PNJs = new List<PolarCharacter>();
-
+    [SerializeField] private float                      m_NPCPerSquareUnit = 5f;
+    private List<PolarCharacter>                        m_NPCs = new List<PolarCharacter>();
     private CircularArea                                m_LastArea = new CircularArea();
+
+    [SerializeField] private float              m_RebelMinElectionDelay;
+    [SerializeField] private float              m_RebelMaxElectionDelay;
+    [SerializeField] private int                m_RitualCountUntilFirstRebel;
+    [SerializeField] private float              m_RebelMinOffsetFromPlayer;
+    [SerializeField] private float              m_RebelMinAngleFromPlayer;
+    private PolarCharacter                      m_Rebel = null;
+    private float                               m_RebelTimer = 0f;
+    private float                               m_RebelElectionDelay;
 
     void Awake()
     {
@@ -52,28 +58,34 @@ public class EverythingManager : Singleton<EverythingManager>
         m_LastArea.AngleMinMax.x = Player.Angle - m_AngleHalfRange;
         m_LastArea.AngleMinMax.y = Player.Angle + m_AngleHalfRange;
         m_LastArea.OffsetMinMax.x = m_CrowdMinRadius;
-        m_LastArea.OffsetMinMax.y = Player.Offset + m_OffsetHalfRange;
+        m_LastArea.OffsetMinMax.y = m_CrowdMaxRadius;
 
         PopulateArea(m_LastArea);
     }
 
     void Update()
     {
-        CircularArea nextArea = new CircularArea();
-        nextArea.AngleMinMax = new Vector2(Player.Angle - m_AngleHalfRange, Player.Angle + m_AngleHalfRange);
-        nextArea.OffsetMinMax = new Vector2(m_CrowdMinRadius, Player.Offset + m_OffsetHalfRange);
+        if (Mathf.Abs(Player.Angle - m_OldPlayerPos.x) > (m_AngleHalfRange / 16f))
+        {
+            CircularArea nextArea = new CircularArea();
+            nextArea.AngleMinMax = new Vector2(Player.Angle - m_AngleHalfRange, Player.Angle + m_AngleHalfRange);
+            nextArea.OffsetMinMax = new Vector2(m_CrowdMinRadius, m_CrowdMaxRadius);
 
-        if (nextArea.AngleMinMax != m_LastArea.AngleMinMax || nextArea.OffsetMinMax != m_LastArea.OffsetMinMax)
-            PopulateDiffArea(nextArea);
+            if (nextArea.AngleMinMax != m_LastArea.AngleMinMax || nextArea.OffsetMinMax != m_LastArea.OffsetMinMax)
+                PopulateDiffArea(nextArea);
 
-        DestroyOutdatedPNJs(nextArea);
+            DestroyOutdatedNPCs(nextArea);
 
-        m_LastArea = nextArea;
+            m_OldPlayerPos.x = Player.Angle; m_OldPlayerPos.y = Player.Offset;
+            m_LastArea = nextArea;
+        }
+
+        RebelUpdateSubroutine();
     }
 
-    private float ComputeArea(CircularArea _source)
+    private float ComputeArea(CircularArea _source, float _angleBias = 0f)
     {
-        float deltaAngle = _source.AngleMinMax.y - _source.AngleMinMax.x;
+        float deltaAngle = (_source.AngleMinMax.y - _source.AngleMinMax.x) + _angleBias;
 
         float greaterArea = deltaAngle * Mathf.Deg2Rad * Mathf.Pow(_source.OffsetMinMax.y, 2f) * 0.5f;
         float smallerArea = deltaAngle * Mathf.Deg2Rad * Mathf.Pow(_source.OffsetMinMax.x, 2f) * 0.5f;
@@ -121,51 +133,119 @@ public class EverythingManager : Singleton<EverythingManager>
     private void PopulateArea(CircularArea _area)
     {
         float surface = Mathf.Abs(ComputeArea(_area));
-        int pnjCount = Mathf.FloorToInt(surface * m_PNJPerSquareUnit);
+        int npcCount = Mathf.RoundToInt(surface * m_NPCPerSquareUnit);
+        Debug.Log(surface + "; " + npcCount);
 
-        for (int i = 0; i < pnjCount; ++i)
+        for (int i = 0; i < npcCount; ++i)
         {
             float angle = Random.Range(_area.AngleMinMax.x, _area.AngleMinMax.y);
             float offset = Random.Range(_area.OffsetMinMax.x, _area.OffsetMinMax.y);
 
             if (offset < m_CrowdMaxRadius && offset > m_CrowdMinRadius)
             {
-                Vector3 PNJpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
-                Vector3 toCenterDirection = m_WorldCenter.position - PNJpos;
-                float m_CrowdLateralBias = 0.5f;
+                Vector3 NPCpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
+                Vector3 toCenterDirection = m_WorldCenter.position - NPCpos;
 
-                Ray neighbourRay = new Ray(PNJpos + Vector3.up * 0.5f, toCenterDirection);
+                /*
+                float m_CrowdLateralBias = 5f;
+                
+                Ray neighbourRay = new Ray(NPCpos + Vector3.up * 0.5f, toCenterDirection);
                 RaycastHit neighbourHit;
                 if (!Physics.Raycast(neighbourRay, out neighbourHit, m_CrowdLateralBias))
                 {
-                    GameObject instance = (GameObject)Instantiate(m_PNJPrefab, PNJpos, Quaternion.LookRotation(m_WorldCenter.position - PNJpos, Vector3.up));
+                if (!Physics.SphereCast(neighbourRay, m_CrowdLateralBias, 0.5f))
+                */
+                {
+                    GameObject instance = (GameObject)Instantiate(m_NPCPrefab, NPCpos, Quaternion.LookRotation(m_WorldCenter.position - NPCpos, Vector3.up));
 
-                    PolarCharacter PNJ = instance.AddComponent<PolarCharacter>();
-                    PNJ.Initialize(angle, offset, m_WorldCenter);
+                    PolarCharacter NPC = instance.AddComponent<PolarCharacter>();
+                    NPC.Initialize(angle, offset, m_WorldCenter);
 
-                    m_PNJs.Add(PNJ);
+                    m_NPCs.Add(NPC);
                 }
             }
         }
     }
 
-    private void DestroyOutdatedPNJs(CircularArea testArea)
+    private void DestroyOutdatedNPCs(CircularArea testArea)
     {
-        List<PolarCharacter> removePNJs = new List<PolarCharacter>();
+        List<PolarCharacter> removeNPCs = new List<PolarCharacter>();
 
-        foreach(var pnj in m_PNJs)
+        foreach(var npc in m_NPCs)
         {
-            if (pnj.Angle < testArea.AngleMinMax.x || pnj.Angle > testArea.AngleMinMax.y ||
-                pnj.Offset < testArea.OffsetMinMax.x || pnj.Offset > testArea.OffsetMinMax.y)
+            if (npc.Angle < testArea.AngleMinMax.x || npc.Angle > testArea.AngleMinMax.y ||
+                npc.Offset < testArea.OffsetMinMax.x || npc.Offset > testArea.OffsetMinMax.y)
             {
-                Destroy(pnj.gameObject);
-                removePNJs.Add(pnj);
+                Destroy(npc.gameObject);
+                removeNPCs.Add(npc);
+
+                if (npc == m_Rebel)
+                    m_Rebel = null;
             }
         }
 
-        foreach(var pnj in removePNJs)
+        foreach(var npc in removeNPCs)
         {
-            m_PNJs.Remove(pnj);
+            m_NPCs.Remove(npc);
         }
+    }
+
+
+    public void ResetRebelSearch()
+    {
+        m_Rebel = null;
+        m_RebelTimer = 0f;
+    }
+
+    private void RebelUpdateSubroutine()
+    {
+        //if (m_RitualCountUntilFirstRebel <= LevelManager.Instance.RitualsCount) return;
+
+        if (m_Rebel == null)
+        {
+            m_RebelTimer += Time.deltaTime;
+            if (m_RebelTimer > m_RebelElectionDelay)
+            {
+                ElectRebel();
+            }
+        }
+        else
+        {
+
+        }
+    }
+
+    private void ElectRebel()
+    {
+        List<PolarCharacter> eligiblesNPC = new List<PolarCharacter>();
+
+        foreach(var npc in m_NPCs)
+        {
+            if (Mathf.Abs(m_Player.Angle - npc.Angle) > m_RebelMinAngleFromPlayer &&
+                Mathf.Abs(m_Player.Offset - npc.Offset) > m_RebelMinOffsetFromPlayer)
+            {
+                Vector3 directionToCenter = npc.transform.position - Quaternion.Euler(Vector3.right * m_Camera.Pitch) * m_WorldCenter.position;
+                Ray backCheckRay = new Ray(npc.transform.position, directionToCenter);
+                int hitCount = Physics.SphereCastAll(backCheckRay, .5f, 1f).Length;
+                if (hitCount <= 1)
+                    eligiblesNPC.Add(npc);
+            }
+        }
+
+        if (eligiblesNPC.Count != 0)
+        {
+            for (int i = 0; i < 100 && m_Rebel == null; ++i)
+            {
+                m_Rebel = eligiblesNPC[Random.Range(0, eligiblesNPC.Count-1)];
+
+                m_Rebel = null;
+            }
+            if (m_Rebel == null)
+                m_Rebel = eligiblesNPC[Random.Range(0, eligiblesNPC.Count - 1)];
+
+            m_Rebel.GetComponent<MeshRenderer>().material.color = new Color(0f, 0f, 0f);
+        }
+        else
+            Debug.Log("No eligible NPC");
     }
 }
