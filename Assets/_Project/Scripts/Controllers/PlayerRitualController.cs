@@ -18,9 +18,11 @@ public class PlayerRitualController : MonoBehaviour
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
 	}
-
+	
 	void Update()
 	{
+		//Debug.Log(gameObject.transform.position);
+
 		if (_closeToDissident)
 		{
 			Debug.Log("I am close to a dissident");

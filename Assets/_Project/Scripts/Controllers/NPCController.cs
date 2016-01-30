@@ -10,7 +10,9 @@ public class NPCController : PolarCharacter
 
 	private bool _posing = false;
 
+    private bool _isRebel = false;
 	private float _detectionRadius = 0.0f;
+    private float _gatesToLive = 0;
 
 	[SerializeField]
 	private InputCombination _dissidentCombination;
@@ -38,15 +40,19 @@ public class NPCController : PolarCharacter
 		}
 	}
 
-	public void YOLOTranscendSQUAD(float detectionRadius, List<EGamePadButton> dissidentCombination)
+	public void YOLOTranscendSQUAD(float detectionRadius, int gatesToLive)
 	{
+        /*
 		_inputCombinationGao = Instantiate(new GameObject());
 		_inputCombinationGao.transform.SetParent(this.gameObject.transform);
 		_inputCombinationGao.AddComponent<InputCombination>();
 		_inputCombinationGao.GetComponent<InputCombination>().Populate(dissidentCombination.ToArray());
 		_dissidentCombination = _inputCombinationGao.GetComponent<InputCombination>();
+        */
 
 		_detectionRadius = detectionRadius;
+        _isRebel = true;
+        _gatesToLive = gatesToLive;
 	}
 
 	public void YOLOBringMeBackToLifeSQUAD()
@@ -55,6 +61,8 @@ public class NPCController : PolarCharacter
 		_inputCombinationGao = null;
 
 		_dissidentCombination = null;
+        _isRebel = false;
+        _gatesToLive = 0;
 
 		_detectionRadius = 0.0f;
 	}
@@ -73,25 +81,44 @@ public class NPCController : PolarCharacter
             }
 		}
 
-		CheckForPlayer();
+		if (_isRebel)
+		{
+			Debug.Log(gameObject.transform.position);
+			CheckForPlayer();
+		}
 	}
 
 	void CheckForPlayer()
 	{
-		int layerMask = 1 << LayerMask.NameToLayer("Player");
+		RotatingPlayerController player = EverythingManager.Instance.Player;
 
-		Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
+		Vector3 sub = player.transform.position - gameObject.transform.position;
+		Debug.Log(sub.magnitude);
+		if (sub.magnitude <= _detectionRadius)
+			Debug.Log("Yessss");
 
-		if (colliders.Length != 0)
-		{
-			foreach (Collider col in colliders)
-			{
-				col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
-			}
-		}
+		//int layerMask = 1 << LayerMask.NameToLayer("Player");
+
+		//Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
+
+		//if (colliders.Length != 0)
+		//{
+		//	foreach (Collider col in colliders)
+		//	{
+		//		col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
+		//	}
+		//}
+		//else
+		//{
+		//	foreach (Collider col in colliders)
+		//	{
+		//		col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = false;
+		//	}
+		//}
+
 	}
 
-    public void ActivatePose(bool instant = false)
+	public void ActivatePose(bool instant = false)
     {
         List<string> poseElements = new List<string>();
 
@@ -131,6 +158,11 @@ public class NPCController : PolarCharacter
 		_inTimePeriod = true;
         _expectedCombination = button;
 		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
+
+        if (_isRebel)
+        {
+            button.Randomize();
+        }
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)
@@ -145,6 +177,13 @@ public class NPCController : PolarCharacter
 		// release their state of animations
         DeactivatePose();
 		_timePeriodEnded = false;
+
+        if (_isRebel)
+        {
+            _gatesToLive--;
+            if (_gatesToLive <= 0)
+                YOLOBringMeBackToLifeSQUAD();
+        }
 	}
 	#endregion
 }
