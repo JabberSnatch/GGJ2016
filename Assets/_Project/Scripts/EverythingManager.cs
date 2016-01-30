@@ -130,12 +130,20 @@ public class EverythingManager : Singleton<EverythingManager>
             if (offset < m_CrowdMaxRadius && offset > m_CrowdMinRadius)
             {
                 Vector3 PNJpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
-                GameObject instance = (GameObject)Instantiate(m_PNJPrefab, PNJpos, Quaternion.LookRotation(m_WorldCenter.position - PNJpos, Vector3.up));
+                Vector3 toCenterDirection = m_WorldCenter.position - PNJpos;
+                float m_CrowdLateralBias = 0.5f;
 
-                PolarCharacter PNJ = instance.AddComponent<PolarCharacter>();
-                PNJ.Initialize(angle, offset, m_WorldCenter);
+                Ray neighbourRay = new Ray(PNJpos + Vector3.up * 0.5f, toCenterDirection);
+                RaycastHit neighbourHit;
+                if (!Physics.Raycast(neighbourRay, out neighbourHit, m_CrowdLateralBias))
+                {
+                    GameObject instance = (GameObject)Instantiate(m_PNJPrefab, PNJpos, Quaternion.LookRotation(m_WorldCenter.position - PNJpos, Vector3.up));
 
-                m_PNJs.Add(PNJ);
+                    PolarCharacter PNJ = instance.AddComponent<PolarCharacter>();
+                    PNJ.Initialize(angle, offset, m_WorldCenter);
+
+                    m_PNJs.Add(PNJ);
+                }
             }
         }
     }
