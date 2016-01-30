@@ -21,7 +21,7 @@ public class GamePadController : MonoBehaviour {
         if (!GPState.IsConnected)
             Debug.LogError("No controller on PlayerIndex.One");
 
-        // OnKeyDown event
+		// OnKeyDown event
         if (GPState.Buttons.A == ButtonState.Pressed && OldState.Buttons.A == ButtonState.Released)
         {
             GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value, 1.0f);
@@ -29,7 +29,7 @@ public class GamePadController : MonoBehaviour {
 
         m_TargetVelocity = (Vector3.forward * GPState.ThumbSticks.Left.Y + 
                            Vector3.right * GPState.ThumbSticks.Left.X) * Time.deltaTime * m_Speed;
-        Debug.Log(GPState.ThumbSticks.Left.X + "; " + GPState.ThumbSticks.Left.Y);
+        //Debug.Log(GPState.ThumbSticks.Left.X + "; " + GPState.ThumbSticks.Left.Y);
 
         m_Velocity = Vector3.Lerp(m_Velocity, m_TargetVelocity, m_DampingFactor / 100f);
 
