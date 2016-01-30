@@ -489,10 +489,15 @@ MonoBehaviour:
   m_PlayerMaxRadius: 97
   m_CrowdMinRadius: 83
   m_CrowdMaxRadius: 96
-  m_PNJPrefab: {fileID: 163824, guid: ac261a353e066ef4b8b642a8c1824f0e, type: 2}
+  m_NPCPrefab: {fileID: 163824, guid: ac261a353e066ef4b8b642a8c1824f0e, type: 2}
   m_OffsetHalfRange: 5
   m_AngleHalfRange: 20
-  m_PNJPerSquareUnit: 0.4
+  m_NPCPerSquareUnit: 0.4
+  m_RebelMinElectionDelay: 0
+  m_RebelMaxElectionDelay: 0
+  m_RitualCountUntilFirstRebel: 0
+  m_RebelMinOffsetFromPlayer: 0
+  m_RebelMinAngleFromPlayer: 0
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0
