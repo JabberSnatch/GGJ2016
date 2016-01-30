@@ -124,13 +124,16 @@ public class EverythingManager : Singleton<EverythingManager>
             float angle = Random.Range(_area.AngleMinMax.x, _area.AngleMinMax.y);
             float offset = Random.Range(_area.OffsetMinMax.x, _area.OffsetMinMax.y);
 
-            Vector3 PNJpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
-            GameObject instance = (GameObject)Instantiate(m_PNJPrefab, PNJpos, Quaternion.LookRotation(m_WorldCenter.position - PNJpos, Vector3.up));
+            if (offset < m_MaxRadius && offset > m_MinRadius)
+            {
+                Vector3 PNJpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
+                GameObject instance = (GameObject)Instantiate(m_PNJPrefab, PNJpos, Quaternion.LookRotation(m_WorldCenter.position - PNJpos, Vector3.up));
 
-            PolarCharacter PNJ = instance.AddComponent<PolarCharacter>();
-            PNJ.Initialize(angle, offset, m_WorldCenter);
+                PolarCharacter PNJ = instance.AddComponent<PolarCharacter>();
+                PNJ.Initialize(angle, offset, m_WorldCenter);
 
-            m_PNJs.Add(PNJ);
+                m_PNJs.Add(PNJ);
+            }
         }
     }
 
