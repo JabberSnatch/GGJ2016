@@ -22,10 +22,11 @@ public class EverythingManager : Singleton<EverythingManager>
     private Vector2                                     m_OldPlayerPos;
     public RotatingPlayerController Player { get { return m_Player; } }
 
-    [SerializeField] private float m_CrowdMinRadius;
-    public float MinRadius { get { return m_CrowdMinRadius; } }
+    [SerializeField] private float m_PlayerMinRadius;
+    public float MinRadius { get { return m_PlayerMinRadius; } }
     [SerializeField] private float m_PlayerMaxRadius;
     public float MaxRadius { get { return m_PlayerMaxRadius; } }
+    [SerializeField] private float m_CrowdMinRadius;
     [SerializeField] private float m_CrowdMaxRadius;
     public float PlayerPositionRatio { get { return (m_Player.Offset - MinRadius) / (MaxRadius - MinRadius); } }
 
