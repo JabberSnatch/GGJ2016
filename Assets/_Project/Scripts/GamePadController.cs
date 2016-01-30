@@ -4,7 +4,7 @@ using XInputDotNetPure;
 
 public class GamePadController : MonoBehaviour {
 
-    [SerializeField] [Range(0f, 100f)] private float m_DampingFactor = 100f; // 0 is no movement, 100 is instant velocity change
+    [SerializeField] [Range(0f, 1f)] private float m_DampingFactor = 1f; // 0 is no movement, 1 is instant velocity change
     [SerializeField] private float m_Speed = 5f; // Speed in meters per sec
 
     private Vector3 m_TargetVelocity = Vector3.zero;
@@ -29,9 +29,9 @@ public class GamePadController : MonoBehaviour {
 
         m_TargetVelocity = (Vector3.forward * GPState.ThumbSticks.Left.Y + 
                            Vector3.right * GPState.ThumbSticks.Left.X) * Time.deltaTime * m_Speed;
-        Debug.Log(GPState.ThumbSticks.Left.X + "; " + GPState.ThumbSticks.Left.Y);
 
-        m_Velocity = Vector3.Lerp(m_Velocity, m_TargetVelocity, m_DampingFactor / 100f);
+        m_Velocity = Vector3.Lerp(m_Velocity, m_TargetVelocity, m_DampingFactor);
+        Debug.Log(m_Velocity);
 
         transform.position += m_Velocity; 
     }
