@@ -21,6 +21,12 @@ public class InputCombination : MonoBehaviour
         return _combination == combination._combination;
     }
 
+    public void Randomize()
+    {
+        if (_combination.Count == 2)
+            return;
+    }
+
     public List<string> ToAnimatorGrammar()
     {
         List<string> result = new List<string>();

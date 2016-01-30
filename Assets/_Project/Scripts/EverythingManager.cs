@@ -42,6 +42,8 @@ public class EverythingManager : Singleton<EverythingManager>
     [SerializeField] private int                m_RitualCountUntilFirstRebel;
     [SerializeField] private float              m_RebelMinOffsetFromPlayer;
     [SerializeField] private float              m_RebelMinAngleFromPlayer;
+    [SerializeField] private float              m_RebelDetectionRadius;
+    [SerializeField] private int                m_RebelGatesToLive;
     private NPCController                       m_Rebel = null;
     private float                               m_RebelTimer = 0f;
     private float                               m_RebelElectionDelay;
@@ -264,7 +266,8 @@ public class EverythingManager : Singleton<EverythingManager>
             if (m_Rebel == null)
                 m_Rebel = eligiblesNPC[Random.Range(0, eligiblesNPC.Count - 1)];
 
-            m_Rebel.GetComponent<MeshRenderer>().material.color = new Color(0f, 0f, 0f);
+            m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(0f, 0f, 0f);
+            m_Rebel.YOLOTranscendSQUAD(m_RebelDetectionRadius, m_RebelGatesToLive);
         }
         else
             Debug.Log("No eligible NPC");

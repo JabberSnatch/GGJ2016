@@ -10,7 +10,9 @@ public class NPCController : PolarCharacter
 
 	private bool _posing = false;
 
+    private bool _isRebel = false;
 	private float _detectionRadius = 0.0f;
+    private float _gatesToLive = 0;
 
 	[SerializeField]
 	private InputCombination _dissidentCombination;
@@ -38,15 +40,19 @@ public class NPCController : PolarCharacter
 		}
 	}
 
-	public void YOLOTranscendSQUAD(float detectionRadius, List<EGamePadButton> dissidentCombination)
+	public void YOLOTranscendSQUAD(float detectionRadius, int gatesToLive)
 	{
+        /*
 		_inputCombinationGao = Instantiate(new GameObject());
 		_inputCombinationGao.transform.SetParent(this.gameObject.transform);
 		_inputCombinationGao.AddComponent<InputCombination>();
 		_inputCombinationGao.GetComponent<InputCombination>().Populate(dissidentCombination.ToArray());
 		_dissidentCombination = _inputCombinationGao.GetComponent<InputCombination>();
+        */
 
 		_detectionRadius = detectionRadius;
+        _isRebel = true;
+        _gatesToLive = gatesToLive;
 	}
 
 	public void YOLOBringMeBackToLifeSQUAD()
@@ -55,6 +61,8 @@ public class NPCController : PolarCharacter
 		_inputCombinationGao = null;
 
 		_dissidentCombination = null;
+        _isRebel = false;
+        _gatesToLive = 0;
 
 		_detectionRadius = 0.0f;
 	}
@@ -131,6 +139,11 @@ public class NPCController : PolarCharacter
 		_inTimePeriod = true;
         _expectedCombination = button;
 		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
+
+        if (_isRebel)
+        {
+            button.Randomize();
+        }
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)
@@ -145,6 +158,13 @@ public class NPCController : PolarCharacter
 		// release their state of animations
         DeactivatePose();
 		_timePeriodEnded = false;
+
+        if (_isRebel)
+        {
+            _gatesToLive--;
+            if (_gatesToLive <= 0)
+                YOLOBringMeBackToLifeSQUAD();
+        }
 	}
 	#endregion
 }
