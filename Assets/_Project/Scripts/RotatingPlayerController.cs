@@ -6,6 +6,8 @@ public class RotatingPlayerController : PolarCharacter
 {
     [SerializeField] [Range(0f, 1f)] private float m_DampingFactor = 1f; // 0 is no movement, 1 is instant velocity change
     [SerializeField] private float m_Speed = 5f; // Speed in meters per sec
+    [SerializeField] private float m_ReducedSpeed = 1f;
+
 
     private Vector3 m_TargetVelocity = Vector3.zero;
     private Vector3 m_Velocity = Vector3.zero;
@@ -19,7 +21,8 @@ public class RotatingPlayerController : PolarCharacter
         GPState = GamePad.GetState(PlayerIndex.One);
 
         m_TargetVelocity = (Vector3.forward * GPState.ThumbSticks.Left.Y +
-                           Vector3.right * GPState.ThumbSticks.Left.X) * Time.deltaTime * m_Speed;
+                           Vector3.right * GPState.ThumbSticks.Left.X) * Time.deltaTime;
+        m_TargetVelocity = m_SpeedIsCapped ? m_TargetVelocity * m_ReducedSpeed : m_TargetVelocity * m_Speed;
 
         m_Velocity = Vector3.Lerp(m_Velocity, m_TargetVelocity, m_DampingFactor);
         BoundZVelocity();
@@ -35,6 +38,7 @@ public class RotatingPlayerController : PolarCharacter
 
         base.Update();
     }
+
 
     private void BoundZVelocity()
     {

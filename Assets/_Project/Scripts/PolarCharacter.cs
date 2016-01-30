@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Animator))]
 public class PolarCharacter : MonoBehaviour
 {
+    protected Animator      m_Animator;
+
     protected Vector3       m_LookDirection = Vector3.zero;
     protected Quaternion    m_TargetRotation = Quaternion.identity;
 
@@ -16,6 +19,10 @@ public class PolarCharacter : MonoBehaviour
 
     protected bool          m_Initalized = false;
 
+    protected bool          m_SpeedIsCapped = false;
+    public void CapSpeed() { m_SpeedIsCapped = true; }
+    public void UncapSpeed() { m_SpeedIsCapped = false; }
+
     virtual protected void Update()
     {
         if (m_Initalized)
@@ -24,6 +31,11 @@ public class PolarCharacter : MonoBehaviour
 
     public void Initialize(float _angle, float _offset, Transform _center)
     {
+        m_Animator = GetComponent<Animator>();
+        //Sample lines
+        //m_Animator.SetBool("X", false);
+        //m_Animator.SetTrigger("XInstant");
+
         m_WorldCenter = _center;
         m_Angle = _angle;
         m_DistanceToCenter = _offset;
