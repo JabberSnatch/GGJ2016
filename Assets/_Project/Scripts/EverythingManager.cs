@@ -241,7 +241,7 @@ public class EverythingManager : Singleton<EverythingManager>
         if (m_Rebel != null)
             m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
 
-        m_Rebel.YOLOBringMeBackToLifeSQUAD();
+        //m_Rebel.YOLOBringMeBackToLifeSQUAD();
         m_Rebel = null;
         m_RebelTimer = 0f;
         m_RebelElectionDelay = Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
@@ -304,19 +304,23 @@ public class EverythingManager : Singleton<EverythingManager>
         }
     }
 
-    public IEnumerator DayNightCycle(float _duration)
+    public IEnumerator DayNightCycle(TimeLine timeline, float _duration)
     {
         float timeStamp = Time.realtimeSinceStartup;
         float time = 0f;
         while (time < _duration)
         {
             float nextTimeStamp = Time.realtimeSinceStartup;
-            time += nextTimeStamp - timeStamp;
+            float deltaTime = nextTimeStamp - timeStamp;
+            time += deltaTime;
             timeStamp = nextTimeStamp;
+            float angleStep = 360f * (deltaTime / _duration);
 
-
+            m_SunLight.transform.Rotate(Vector3.right, angleStep);
 
             yield return null;
         }
+
+        timeline.PauseForDayNight = false;
     }
 }
