@@ -587,12 +587,12 @@ MonoBehaviour:
   m_NPCPerSquareUnit: 0.4
   m_RebelMinElectionDelay: 1
   m_RebelMaxElectionDelay: 3
-  m_RitualCountUntilFirstRebel: 0
-  m_RebelMinOffsetFromPlayer: 0
-  m_RebelMinAngleFromPlayer: 0
+  m_RitualCountUntilFirstRebel: 1
+  m_RebelMinOffsetFromPlayer: 5
+  m_RebelMinAngleFromPlayer: 5
   m_RebelDetectionRadius: 2
-  m_RebelGatesToLive: 4
-  m_BooDuration: 3
+  m_RebelGatesToLive: 3
+  m_BooDuration: 2.5
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0
@@ -1427,6 +1427,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0537ec3d578a2804c84391363a3dbffa, type: 3}
+  m_IsPrefabParent: 0
+--- !u!1001 &2030479796
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2093100538 stripped
 Transform:
