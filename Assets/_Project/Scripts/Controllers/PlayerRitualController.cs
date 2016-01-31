@@ -42,6 +42,7 @@ public class PlayerRitualController : MonoBehaviour
 		{
 			Debug.Log("Close enough to Rebel when the Gate happened");
 
+			float currentTimerIndex = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimerIndex;
 			InputCombination combination = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentKeyCombination;
 			List<bool> snapshot = InputManager.Instance.Snapshot;
 
@@ -64,7 +65,19 @@ public class PlayerRitualController : MonoBehaviour
 			Debug.Log(s);
 			////////////////
 
-			//TODO
+			// TODO
+			// now that I have my combination of keys, I want to compare it to the current InputCombination
+			if (keysPressed == combination)
+			{
+				Debug.Log("CORRECT COMBINATION");
+				// reduce the size of the chain and remove that timer from the timeline
+				LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+			}
+			else
+			{
+				Debug.Log("WRONG COMBINATION");
+				// trigger booing towards the player
+			}
 		}
 	}
 }

@@ -15,6 +15,32 @@ public class InputChain : MonoBehaviour
 		get { return _chain; }
 	}
 
+	void Start()
+	{
+		for (int i = 0; i < _chain.Count; ++i)
+		{
+			_chain[i] = Instantiate(_chain[i]);
+		}
+	}
+
+	void Update()
+	{
+		int i = 0;
+		string s = "{";
+		foreach (InputCombination input in _chain)
+		{
+			if (_chain[i].Combination[0] == EGamePadButton.None)
+				s += i + "=, ";
+			else
+				s += i + "//, ";
+			++i;
+		}
+		s = s.Remove(s.Length - 2);
+		s += "}";
+
+		Debug.Log(s);
+	}
+
 	public void NullifyCombination(int index)
 	{
 		_chain[index].Populate(EGamePadButton.None);

@@ -6,6 +6,11 @@ public class InputCombination : MonoBehaviour
     [SerializeField]
     private List<EGamePadButton> _combination;
 
+	public List<EGamePadButton> Combination
+	{
+		get { return _combination; }
+	}
+
     public void Populate(params EGamePadButton[] InputManager)
     {
         _combination.Clear();
@@ -13,12 +18,6 @@ public class InputCombination : MonoBehaviour
 
         foreach (EGamePadButton button in InputManager)
             _combination.Add(button);
-    }
-
-    // might be useless or implemented differently, not sure about that yet
-    public bool CheckCombination(InputCombination combination)
-    {
-        return _combination == combination._combination;
     }
 
     public void Randomize()
@@ -97,6 +96,25 @@ public class InputCombination : MonoBehaviour
 		}
 	}
 
+	public static bool operator == (List<EGamePadButton> a, InputCombination b)
+	{
+		int aSize = a.Count;
+		int bSize = b._combination.Count;
+
+		if (aSize != bSize)
+			return false;
+		else
+		{
+			foreach (EGamePadButton button in a)
+			{
+				if (!b._combination.Contains(button))
+					return false;
+			}
+
+			return true;
+		}
+	}
+
 	public static bool operator != (InputCombination a, InputCombination b)
 	{
 		int aSize = a._combination.Count;
@@ -107,6 +125,25 @@ public class InputCombination : MonoBehaviour
 		else
 		{
 			foreach (EGamePadButton button in a._combination)
+			{
+				if (!b._combination.Contains(button))
+					return true;
+			}
+
+			return false;
+		}
+	}
+
+	public static bool operator != (List<EGamePadButton> a, InputCombination b)
+	{
+		int aSize = a.Count;
+		int bSize = b._combination.Count;
+
+		if (aSize != bSize)
+			return true;
+		else
+		{
+			foreach (EGamePadButton button in a)
 			{
 				if (!b._combination.Contains(button))
 					return true;

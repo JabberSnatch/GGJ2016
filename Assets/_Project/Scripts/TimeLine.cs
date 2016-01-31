@@ -34,6 +34,16 @@ public class TimeLine : MonoBehaviour
 		get { return _timers[_currentTimerIndex]; }
 	}
 
+	public float CurrentTimerIndex
+	{
+		get { return _currentTimerIndex; }
+	}
+
+	public InputChain Chain
+	{
+		get { return _chain; }
+	}
+
 	public InputCombination CurrentKeyCombination
 	{
 		get { return _chain.Chain[_currentTimerIndex]; }
