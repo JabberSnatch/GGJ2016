@@ -162,7 +162,8 @@ public class NPCController : PolarCharacter
 
     public void BooOutcastPlayer(RotatingPlayerController player)
     {
-        _booedCharacter = player;
+		AudioPlayer.Instance.PlayPlayerOutcast();
+		_booedCharacter = player;
         _booDuration = Mathf.Infinity;
         _booElapsedTime = 0f;
     }

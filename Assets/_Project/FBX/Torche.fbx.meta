@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e1119ba5b8f63b045ae38f8463aada15
-timeCreated: 1454213387
+guid: 7e984c6d794272b44ac1c57c2ed49ca8
+timeCreated: 1454236319
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCylinder1
+    4300000: Torche
     9500000: //RootNode
   materials:
     importMaterials: 1
