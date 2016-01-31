@@ -202,7 +202,6 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void BooCharacter(PolarCharacter target)
     {
-        Debug.Log("BooCharacter");
         foreach (var npc in m_NPCs)
         {
             if (npc != target)
@@ -244,7 +243,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void RebelUpdateSubroutine()
     {
-        if (m_RitualCountUntilFirstRebel < LevelManager.Instance.RitualsCount) return;
+        if (LevelManager.Instance.RitualsCount < m_RitualCountUntilFirstRebel) return;
 
         if (m_Rebel == null)
         {
@@ -253,9 +252,6 @@ public class EverythingManager : Singleton<EverythingManager>
             {
                 ElectRebel();
             }
-        }
-        else
-        {
         }
     }
 

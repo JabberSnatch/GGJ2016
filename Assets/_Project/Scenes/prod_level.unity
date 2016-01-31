@@ -386,7 +386,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 740545528}
-  m_LocalRotation: {x: 0.40821794, y: -0.23456973, z: 0.109381676, w: 0.87542605}
+  m_LocalRotation: {x: -0.40821797, y: 0.23456939, z: -0.10938151, w: -0.8754262}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -535,8 +535,8 @@ MonoBehaviour:
   m_OffsetHalfRange: 5
   m_AngleHalfRange: 20
   m_NPCPerSquareUnit: 0.4
-  m_RebelMinElectionDelay: 0
-  m_RebelMaxElectionDelay: 0
+  m_RebelMinElectionDelay: 1
+  m_RebelMaxElectionDelay: 3
   m_RitualCountUntilFirstRebel: 0
   m_RebelMinOffsetFromPlayer: 0
   m_RebelMinAngleFromPlayer: 0

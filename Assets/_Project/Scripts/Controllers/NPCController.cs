@@ -59,6 +59,8 @@ public class NPCController : PolarCharacter
 
 	public void YOLOBringMeBackToLifeSQUAD()
 	{
+		EverythingManager.Instance.ResetRebelSearch();
+
 		Destroy(_inputCombinationGao);
 		_inputCombinationGao = null;
 
@@ -66,8 +68,6 @@ public class NPCController : PolarCharacter
         _gatesToLive = 0;
 
 		_detectionRadius = 0.0f;
-
-		EverythingManager.Instance.ResetRebelSearch();
 	}
 
 	override protected void Update()

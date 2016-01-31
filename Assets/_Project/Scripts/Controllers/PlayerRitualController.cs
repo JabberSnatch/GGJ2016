@@ -42,10 +42,13 @@ public class PlayerRitualController : MonoBehaviour
 		float currentTimerIndex = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimerIndex;
 		InputCombination combination = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentKeyCombination;
 
-        InputCombination rebelCombination = new InputCombination();
+        InputCombination rebelCombination = gameObject.AddComponent<InputCombination>();
         bool rebelExists = EverythingManager.Instance.Rebel != null;
         if (rebelExists)
+        {
+            Destroy(rebelCombination);
             rebelCombination = EverythingManager.Instance.Rebel.ExpectedCombination;
+        }
 
 		List<bool> snapshot = InputManager.Instance.Snapshot;
 
@@ -88,5 +91,8 @@ public class PlayerRitualController : MonoBehaviour
             if (rebelExists)
                 EverythingManager.Instance.ResetRebelSearch();
 		}
-	}
+
+        if (!rebelExists)
+            Destroy(rebelCombination);
+    }
 }

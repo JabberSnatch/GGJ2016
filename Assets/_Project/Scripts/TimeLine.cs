@@ -59,8 +59,12 @@ public class TimeLine : MonoBehaviour
 		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount && !_gateReached)
 		{
 			OnTimerEnds(EventArgs.Empty);
-			_currentTimerIndex = (++_currentTimerIndex) % _timers.Count;
-			++LevelManager.Instance.RitualsCount;
+            _currentTimerIndex++;
+            if (_currentTimerIndex >= _timers.Count)
+            {
+                _currentTimerIndex = 0;
+                LevelManager.Instance.RitualsCount++;
+            }
 			_currentElapsedTime = CurrentTimer.TotalTimeCount - _currentElapsedTime;
 			_startReached = false;
 			_endReached = false;

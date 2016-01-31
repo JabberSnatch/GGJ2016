@@ -38,7 +38,7 @@ public class InputChain : MonoBehaviour
 		s = s.Remove(s.Length - 2);
 		s += "}";
 
-		Debug.Log(s);
+		//Debug.Log(s);
 	}
 
 	public void NullifyCombination(int index)
