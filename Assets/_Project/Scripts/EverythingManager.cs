@@ -16,6 +16,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     [SerializeField] private RotatingCameraController   m_Camera;
     [SerializeField] private Light                      m_SunLight;
+    private bool                                        m_IsDay = true;
 
     [SerializeField] private LeaderNPCController        m_Leader;
 
@@ -307,6 +308,17 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public IEnumerator DayNightCycle(TimeLine timeline, float _duration)
     {
+        if (m_IsDay)
+        {
+            AudioPlayer.Instance.PlayNightFall();
+            m_IsDay = false;
+        }
+        else
+        {
+            AudioPlayer.Instance.PlaySunRise();
+            m_IsDay = true;
+        }
+
         float timeStamp = Time.realtimeSinceStartup;
         float time = 0f;
         yield return new WaitForSeconds(2f);
