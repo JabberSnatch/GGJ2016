@@ -162,7 +162,6 @@ public class NPCController : PolarCharacter
 
     public void BooOutcastPlayer(RotatingPlayerController player)
     {
-		AudioPlayer.Instance.PlayPlayerOutcast();
 		_booedCharacter = player;
         _booDuration = Mathf.Infinity;
         _booElapsedTime = 0f;
@@ -197,7 +196,8 @@ public class NPCController : PolarCharacter
         if (_isRebel)
         {
             _gatesToLive--;
-			_expectedCombination = _expectedCombination.Randomize();
+			if (_expectedCombination)
+				_expectedCombination = _expectedCombination.Randomize();
             if (_gatesToLive <= 0)
                 YOLOBringMeBackToLifeSQUAD();
         }

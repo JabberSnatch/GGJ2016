@@ -70,31 +70,27 @@ public class PlayerRitualController : MonoBehaviour
 		if (keysPressed.Count == 0)
 			keysPressed.Add(EGamePadButton.None);
 
-		// now that I have my combination of keys, I want to compare it to the current InputCombination
-		if (!rebelCombination)
-			rebelCombination.Populate(EGamePadButton.None);
-
-        if (keysPressed == rebelCombination && _closeToDissident)
+		if (rebelCombination)
 		{
-			Debug.Log("CORRECT COMBINATION");
-            // reduce the size of the chain and remove that timer from the timeline
-            EverythingManager.Instance.DeactivateALLPoses();
-            LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
-			EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
-			AudioPlayer.Instance.PlayPlayerInputWithRebel();
-
+			if (keysPressed == rebelCombination && _closeToDissident)
+			{
+				Debug.Log("CORRECT COMBINATION");
+				EverythingManager.Instance.DeactivateALLPoses();
+				LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+				EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
+				AudioPlayer.Instance.PlayPlayerInputWithRebel();
+			}
 		}
-		else if (keysPressed == combination)
+		if (keysPressed == combination)
         {
             Debug.Log("NEUTRAL COMBINATION");
             if (rebelExists)
                 EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Rebel);
 			AudioPlayer.Instance.PlayPlayerInputFail();
 		}
-		else
+		if (keysPressed != combination)
 		{
 			Debug.Log("WRONG COMBINATION");
-            // trigger booing towards the player
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);
 			AudioPlayer.Instance.PlayPlayerInputFail();
             if (rebelExists)

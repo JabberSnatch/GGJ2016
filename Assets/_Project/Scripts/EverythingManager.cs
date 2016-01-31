@@ -216,14 +216,18 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void BooOutcastPlayer()
     {
-        if (Player.Offset > m_CrowdMaxRadius || Player.Offset < m_CrowdMinRadius)
+		if (Player.Offset > m_CrowdMaxRadius || Player.Offset < m_CrowdMinRadius)
         {
             foreach (var npc in m_NPCs)
                 npc.BooOutcastPlayer(m_Player);
 
-            if (!m_PlayerIsOutcast) m_PlayerIsOutcast = true;
-        }
-        else
+			if (!m_PlayerIsOutcast)
+			{
+				m_PlayerIsOutcast = true;
+				AudioPlayer.Instance.PlayPlayerOutcast();
+			}
+		}
+		else
         {
             if (m_PlayerIsOutcast)
             {
