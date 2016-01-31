@@ -37,6 +37,7 @@ public class LevelManager : Singleton<LevelManager>
     public int RitualsCount
     {
         get { return _ritualsCount; }
+		set { _ritualsCount = value; }
     }
 	#endregion
 
