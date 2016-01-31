@@ -307,13 +307,14 @@ public class EverythingManager : Singleton<EverythingManager>
     {
         float timeStamp = Time.realtimeSinceStartup;
         float time = 0f;
+        yield return new WaitForSeconds(2f);
         while (time < _duration)
         {
             float nextTimeStamp = Time.realtimeSinceStartup;
             float deltaTime = nextTimeStamp - timeStamp;
             time += deltaTime;
             timeStamp = nextTimeStamp;
-            float angleStep = 360f * (deltaTime / _duration);
+            float angleStep = 180f * (deltaTime / _duration);
 
             m_SunLight.transform.Rotate(Vector3.right, angleStep);
 
