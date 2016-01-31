@@ -65,7 +65,10 @@ public class PlayerRitualController : MonoBehaviour
 		s = s.Remove(s.Length - 2);
 		s += "]";
 		Debug.Log(s);
-        ////////////////
+		////////////////
+
+		if (keysPressed.Count == 0)
+			keysPressed.Add(EGamePadButton.None);
 
         // now that I have my combination of keys, I want to compare it to the current InputCombination
         if (keysPressed == rebelCombination && _closeToDissident)
@@ -74,6 +77,7 @@ public class PlayerRitualController : MonoBehaviour
             // reduce the size of the chain and remove that timer from the timeline
             EverythingManager.Instance.DeactivateALLPoses();
             LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+			EverythingManager.Instance.ResetRebelSearch();
 		}
         else if (keysPressed == combination)
         {
