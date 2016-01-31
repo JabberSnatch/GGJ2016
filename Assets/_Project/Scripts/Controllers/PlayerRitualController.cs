@@ -18,15 +18,12 @@ public class PlayerRitualController : MonoBehaviour
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
 	}
-
+	
 	void Update()
 	{
-		if (_closeToDissident)
-		{
-			Debug.Log("I am close to a dissident");
-		}
 	}
-	
+
+
 	private void OnTimePeriodStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 
@@ -39,6 +36,35 @@ public class PlayerRitualController : MonoBehaviour
 
 	private void OnTimerEnd(EventArgs e)
 	{
-		// check the snapshot of the gamepad to see if it matches the current requested combination, or, the combination of the dissident if you are close enough
+		Debug.Log("Log is on Gate number : " + LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimer);
+
+		if (_closeToDissident)
+		{
+			Debug.Log("Close enough to Rebel when the Gate happened");
+
+			InputCombination combination = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentKeyCombination;
+			List<bool> snapshot = InputManager.Instance.Snapshot;
+
+			List<EGamePadButton> keysPressed = new List<EGamePadButton>();
+
+			for (int i = 0; i < snapshot.Count; ++i)
+			{
+				if (snapshot[i]) keysPressed.Add((EGamePadButton)i);
+			}
+
+			// DEBUG PURPOSE
+			string s = "";
+			s += "Pressed Sequence : [";
+			for (int i = 0; i < keysPressed.Count; ++i)
+			{
+				s += InputCombination.InputToAnimatorField(keysPressed[i]) + ", ";
+			}
+			s = s.Remove(s.Length - 2);
+			s += "]";
+			Debug.Log(s);
+			////////////////
+
+			//TODO
+		}
 	}
 }

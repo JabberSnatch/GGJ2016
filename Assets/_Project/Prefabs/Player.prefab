@@ -357,7 +357,7 @@ GameObject:
   - 136: {fileID: 13623696}
   - 114: {fileID: 11498230}
   - 114: {fileID: 11437344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,6 +863,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_DampingFactor
       value: 0.243
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

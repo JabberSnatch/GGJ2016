@@ -49,7 +49,7 @@ public class NPCController : PolarCharacter
 
 		_detectionRadius = detectionRadius;
         _isRebel = true;
-        _gatesToLive = gatesToLive;
+		_gatesToLive = gatesToLive;
 	}
 
 	public void YOLOBringMeBackToLifeSQUAD()
@@ -61,6 +61,8 @@ public class NPCController : PolarCharacter
         _gatesToLive = 0;
 
 		_detectionRadius = 0.0f;
+
+		EverythingManager.Instance.ResetRebelSearch();
 	}
 
 	override protected void Update()
@@ -77,25 +79,23 @@ public class NPCController : PolarCharacter
             }
 		}
 
-		CheckForPlayer();
+		if (_isRebel)
+			CheckForPlayer();
 	}
 
 	void CheckForPlayer()
 	{
-		int layerMask = 1 << LayerMask.NameToLayer("Player");
+		RotatingPlayerController player = EverythingManager.Instance.Player;
 
-		Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
+		Vector3 sub = player.transform.position - gameObject.transform.position;
 
-		if (colliders.Length != 0)
-		{
-			foreach (Collider col in colliders)
-			{
-				col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
-			}
-		}
+		if (sub.magnitude <= _detectionRadius)
+			player.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
+		else
+			player.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = false;
 	}
 
-    public void ActivatePose(bool instant = false)
+	public void ActivatePose(bool instant = false)
     {
         List<string> poseElements = new List<string>();
 
@@ -132,10 +132,12 @@ public class NPCController : PolarCharacter
         _expectedCombination = button;
 		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
 
+        /*
         if (_isRebel)
         {
             _expectedCombination.Randomize();
         }
+        */
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)

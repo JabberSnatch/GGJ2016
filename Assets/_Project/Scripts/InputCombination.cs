@@ -6,12 +6,12 @@ public class InputCombination : MonoBehaviour
     [SerializeField]
     private List<EGamePadButton> _combination;
 
-    public void Populate(params EGamePadButton[] inputs)
+    public void Populate(params EGamePadButton[] InputManager)
     {
         _combination.Clear();
-        _combination = new List<EGamePadButton>(inputs.Length);
+        _combination = new List<EGamePadButton>(InputManager.Length);
 
-        foreach (EGamePadButton button in inputs)
+        foreach (EGamePadButton button in InputManager)
             _combination.Add(button);
     }
 
@@ -41,7 +41,7 @@ public class InputCombination : MonoBehaviour
         return result;
     }
 
-    private string InputToAnimatorField(EGamePadButton button)
+    static public string InputToAnimatorField(EGamePadButton button)
     {
         switch (button)
         {
@@ -53,15 +53,15 @@ public class InputCombination : MonoBehaviour
                 return "X";
             case EGamePadButton.Y:
                 return "Y";
-            case EGamePadButton.LeftShoulder:
+			case EGamePadButton.LeftTrigger:
+				return "LeftTrigger";
+			case EGamePadButton.LeftShoulder:
                 return "LeftButton";
-            case EGamePadButton.LeftTrigger:
-                return "LeftTrigger";
-            case EGamePadButton.RightShoulder:
-                return "RightButton";
             case EGamePadButton.RightTrigger:
                 return "RightTrigger";
-            default:
+			case EGamePadButton.RightShoulder:
+				return "RightButton";
+			default:
                 return "";
         }
     }
