@@ -37,8 +37,6 @@ public class PlayerRitualController : MonoBehaviour
 	{
 		Debug.Log("Log is on Gate number : " + LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimer);
 
-		Debug.Log("Close enough to Rebel when the Gate happened");
-
 		float currentTimerIndex = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimerIndex;
 		InputCombination combination = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentKeyCombination;
 
@@ -69,7 +67,6 @@ public class PlayerRitualController : MonoBehaviour
 		Debug.Log(s);
         ////////////////
 
-        // TODO
         // now that I have my combination of keys, I want to compare it to the current InputCombination
         if (keysPressed == rebelCombination && _closeToDissident)
 		{

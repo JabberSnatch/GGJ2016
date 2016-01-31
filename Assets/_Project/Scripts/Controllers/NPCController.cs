@@ -10,6 +10,7 @@ public class NPCController : PolarCharacter
 	private bool _posing = false;
 
     private bool _isRebel = false;
+	public bool IsRebel { get { return _isRebel; } }
 	private float _detectionRadius = 0.0f;
     private float _gatesToLive = 0;
 
@@ -44,7 +45,7 @@ public class NPCController : PolarCharacter
 
 	public void YOLOTranscendSQUAD(float detectionRadius, int gatesToLive)
 	{
-        /*
+		/*
 		_inputCombinationGao = Instantiate(new GameObject());
 		_inputCombinationGao.transform.SetParent(this.gameObject.transform);
 		_inputCombinationGao.AddComponent<InputCombination>();
@@ -52,9 +53,16 @@ public class NPCController : PolarCharacter
 		_dissidentCombination = _inputCombinationGao.GetComponent<InputCombination>();
         */
 
+		DeactivatePose();
+
 		_detectionRadius = detectionRadius;
         _isRebel = true;
 		_gatesToLive = gatesToLive;
+
+		if (_expectedCombination)
+			_expectedCombination = _expectedCombination.Randomize();
+
+		ActivatePose();
 	}
 
 	public void YOLOBringMeBackToLifeSQUAD()
@@ -170,15 +178,8 @@ public class NPCController : PolarCharacter
 	private void OnTimePeriodStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 		_inTimePeriod = true;
-        _expectedCombination = button;
+        if (!_isRebel) _expectedCombination = button;
 		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
-
-        
-        if (_isRebel)
-        {
-            _expectedCombination.Randomize();
-        }
-        
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)
