@@ -75,11 +75,5 @@ public class LeaderNPCController : NPCController
         _inTimePeriod = true;
         _expectedCombination = button;
         _timePeriod = 0f;
-
-        if (_isRebel)
-        {
-            //_expectedCombination.Randomize();
-            Debug.Log("Randomize");
-        }
     }
 }

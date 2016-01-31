@@ -50,13 +50,12 @@ public class TimeLine : MonoBehaviour
 	}
 	#endregion
 
-
 	#region Methods
 	void Update()
 	{
 		_currentElapsedTime += Time.deltaTime;
 
-		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount && !_gateReached)
+		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount)
 		{
 			OnTimerEnds(EventArgs.Empty);
             _currentTimerIndex++;
