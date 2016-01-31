@@ -172,7 +172,7 @@ public class EverythingManager : Singleton<EverythingManager>
                 {
                     GameObject instance = (GameObject)Instantiate(m_NPCPrefab, NPCpos, Quaternion.LookRotation(m_WorldCenter.position - NPCpos, Vector3.up));
 
-                    NPCController NPC = instance.AddComponent<NPCController>();
+                    NPCController NPC = instance.GetComponent<NPCController>();
                     NPC.Initialize(angle, offset, m_WorldCenter);
 
                     m_NPCs.Add(NPC);

@@ -4,6 +4,9 @@ using System;
 
 public class PlayerRitualController : MonoBehaviour
 {
+	[SerializeField]
+	private GameObject _mesh;
+
 	private bool _closeToDissident = false;
 
 	public bool CloseToDissident
@@ -17,6 +20,10 @@ public class PlayerRitualController : MonoBehaviour
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
+
+		if (!_mesh.GetComponent<Renderer>())
+			_mesh.AddComponent<Renderer>();
+		_mesh.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture>("D_Chara_03");
 	}
 	
 	void Update()

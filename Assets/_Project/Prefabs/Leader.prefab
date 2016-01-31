@@ -787,6 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45217220db419c4b96ea1595a0061e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mesh: {fileID: 161186}
   m_SpriteNode: {fileID: 464170}
   m_VerticalOffset: 2.5
 --- !u!136 &13641744

@@ -4,6 +4,9 @@ using System;
 
 public class NPCController : PolarCharacter
 {
+	[SerializeField]
+	private GameObject _mesh;
+
 	protected bool _inTimePeriod = false;
     protected float _timePeriod = 0.0f;
 
@@ -33,9 +36,17 @@ public class NPCController : PolarCharacter
 		gao.AddComponent<InputCombination>();
 		gao.GetComponent<InputCombination>().Populate(EGamePadButton.None);
 		_expectedCombination = gao.GetComponent<InputCombination>();
+
+		if (!_mesh.GetComponent<Renderer>())
+			_mesh.AddComponent<Renderer>();
+
+		if (UnityEngine.Random.Range(0, 1) == 0)
+			_mesh.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture>("D_Chara_01");
+		else
+			_mesh.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture>("D_Chara_02");
 	}
 
-    void OnDestroy()
+	void OnDestroy()
     {
 		if (LevelManager.Instance)
 		{
