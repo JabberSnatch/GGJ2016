@@ -77,7 +77,7 @@ public class PlayerRitualController : MonoBehaviour
             // reduce the size of the chain and remove that timer from the timeline
             EverythingManager.Instance.DeactivateALLPoses();
             LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
-			EverythingManager.Instance.ResetRebelSearch();
+			EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
 		}
         else if (keysPressed == combination)
         {
@@ -91,7 +91,7 @@ public class PlayerRitualController : MonoBehaviour
             // trigger booing towards the player
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);
             if (rebelExists)
-                EverythingManager.Instance.ResetRebelSearch();
+				EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
 		}
 
         if (!rebelExists)

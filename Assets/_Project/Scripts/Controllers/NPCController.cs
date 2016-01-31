@@ -196,6 +196,7 @@ public class NPCController : PolarCharacter
         if (_isRebel)
         {
             _gatesToLive--;
+			_expectedCombination = _expectedCombination.Randomize();
             if (_gatesToLive <= 0)
                 YOLOBringMeBackToLifeSQUAD();
         }
