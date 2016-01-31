@@ -41,6 +41,19 @@ public class LevelManager : Singleton<LevelManager>
     }
 	#endregion
 
+	void Update()
+	{
+		if (CurrentTimeline)
+		{
+			if (CurrentTimeline.GetComponent<TimeLine>()._timeLineIsDone)
+				LoadLevel(++_currentLevelIndex);
+		}
+		else
+		{
+			LoadLevel(++_currentLevelIndex);
+		}
+	}
+
     void Start()
     {
         LoadLevel(0);
