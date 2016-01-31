@@ -24,51 +24,35 @@ public class InputCombination : MonoBehaviour
             _combination.Add(button);
     }
 
-    public void Randomize()
+    public InputCombination Randomize()
     {
-		_savedCombination = _combination;
+		GameObject combinationGAO = new GameObject();
+		combinationGAO.AddComponent<InputCombination>();
+
+		InputCombination ret = combinationGAO.GetComponent<InputCombination>();
 
 		float seed0, seed1, seed2 = 0.0f;
 
-		if (_savedCombination.Count == 1)
+		if (_combination.Count == 1)
 		{
-			do
-			{
-				seed0 = Random.Range(0, GamePadKeyCount);
-			} while (seed0 == (int)_savedCombination[0]);
-			_combination[0] = (EGamePadButton)seed0;
+			while ((seed0 = Random.Range(0, GamePadKeyCount)) == (int)_combination[0]) { }
+			ret.Populate((EGamePadButton)seed0);
 		}
 		else if (_savedCombination.Count == 2)
 		{
-			do
-			{
-				seed0 = Random.Range(0, GamePadKeyCount);
-			} while (seed0 == (int)_savedCombination[0]);
-			_combination[0] = (EGamePadButton)seed0;
-			do
-			{
-				seed1 = Random.Range(0, GamePadKeyCount);
-			} while (seed1 == (int)_savedCombination[1]);
-			_combination[1] = (EGamePadButton)seed1;
+			while ((seed0 = Random.Range(0, GamePadKeyCount)) == (int)_combination[0]) { }
+			while ((seed1 = Random.Range(0, GamePadKeyCount)) == (int)_combination[1]) { }
+			ret.Populate((EGamePadButton)seed0, (EGamePadButton)seed1);
 		}
 		else if (_savedCombination.Count == 3)
 		{
-			do
-			{
-				seed0 = Random.Range(0, GamePadKeyCount);
-			} while (seed0 == (int)_savedCombination[0]);
-			_combination[0] = (EGamePadButton)seed0;
-			do
-			{
-				seed1 = Random.Range(0, GamePadKeyCount);
-			} while (seed1 == (int)_savedCombination[1]);
-			_combination[1] = (EGamePadButton)seed1;
-			do
-			{
-				seed2 = Random.Range(0, GamePadKeyCount);
-			} while (seed2 == (int)_savedCombination[2]);
-			_combination[1] = (EGamePadButton)seed2;
+			while ((seed0 = Random.Range(0, GamePadKeyCount)) == (int)_combination[0]) { }
+			while ((seed1 = Random.Range(0, GamePadKeyCount)) == (int)_combination[1]) { }
+			while ((seed2 = Random.Range(0, GamePadKeyCount)) == (int)_combination[2]) { }
+			ret.Populate((EGamePadButton)seed0, (EGamePadButton)seed1, (EGamePadButton)seed2);
 		}
+
+		return ret;
     }
 
     public List<string> ToAnimatorGrammar()

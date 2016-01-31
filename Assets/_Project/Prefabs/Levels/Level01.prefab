@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitingTimePeriodStart: 2
   _waitingTimePeriodEnd: 4
-  _totalTimeCount: 5
+  _totalTimeCount: 8
 --- !u!114 &11411116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitingTimePeriodStart: 1
   _waitingTimePeriodEnd: 4
-  _totalTimeCount: 5
+  _totalTimeCount: 8
 --- !u!114 &11478852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -390,7 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitingTimePeriodStart: 3
   _waitingTimePeriodEnd: 4
-  _totalTimeCount: 5
+  _totalTimeCount: 8
 --- !u!114 &11495396
 MonoBehaviour:
   m_ObjectHideFlags: 1
