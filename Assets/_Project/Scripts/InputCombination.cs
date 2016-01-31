@@ -105,6 +105,8 @@ public class InputCombination : MonoBehaviour
                 return "RightTrigger";
 			case EGamePadButton.RightShoulder:
 				return "RightButton";
+            case EGamePadButton.None:
+                return "None";
 			default:
                 return "";
         }

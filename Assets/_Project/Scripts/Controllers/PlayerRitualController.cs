@@ -74,8 +74,9 @@ public class PlayerRitualController : MonoBehaviour
         if (keysPressed == rebelCombination && _closeToDissident)
 		{
 			Debug.Log("CORRECT COMBINATION");
-			// reduce the size of the chain and remove that timer from the timeline
-			LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+            // reduce the size of the chain and remove that timer from the timeline
+            EverythingManager.Instance.DeactivateALLPoses();
+            LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
 		}
         else if (keysPressed == combination)
         {

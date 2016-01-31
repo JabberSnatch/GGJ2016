@@ -292,4 +292,12 @@ public class EverythingManager : Singleton<EverythingManager>
         else
             Debug.Log("No eligible NPC");
     }
+
+    public void DeactivateALLPoses()
+    {
+        foreach(var npc in m_NPCs)
+        {
+            npc.DeactivatePose();
+        }
+    }
 }
