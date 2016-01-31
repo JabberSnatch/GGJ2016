@@ -54,6 +54,11 @@ public class TimeLine : MonoBehaviour
 	#endregion
 
 	#region Methods
+    void Awake()
+    {
+        TimerEnded += EverythingManager.Instance.RebelUpdateSubroutine;
+    }
+
 	void Update()
 	{
         if (_IsPausedForDayNight) return;
