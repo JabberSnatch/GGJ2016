@@ -14,6 +14,8 @@ public class EverythingManager : Singleton<EverythingManager>
 
     [SerializeField] private RotatingCameraController   m_Camera;
 
+    [SerializeField] private LeaderNPCController        m_Leader;
+
     [SerializeField] private GameObject                 m_PlayerPrefab;
     [SerializeField] private float                      m_PlayerSpawnOffset;
     [SerializeField] private float                      m_PlayerSpawnAngle;
@@ -54,12 +56,13 @@ public class EverythingManager : Singleton<EverythingManager>
 
     void Awake()
     {
-        m_Camera.WorldCenter = m_WorldCenter;
+        m_Leader.Initialize(m_PlayerSpawnAngle, (m_Leader.transform.position - m_WorldCenter.position).magnitude, m_WorldCenter);
 
         Vector3 playerPosition = PolarCharacter.PolarToWorld(m_PlayerSpawnAngle, m_PlayerSpawnOffset, m_WorldCenter.position);
         m_Player = ((GameObject)Instantiate(m_PlayerPrefab, playerPosition, Quaternion.LookRotation(m_WorldCenter.position - playerPosition, Vector3.up))).GetComponent<RotatingPlayerController>();
         m_Player.Initialize(m_PlayerSpawnAngle, m_PlayerSpawnOffset, m_WorldCenter);
 
+        m_Camera.WorldCenter = m_WorldCenter;
         m_Camera.Subject = m_Player;
 
         m_LastArea.AngleMinMax.x = Player.Angle - m_AngleHalfRange;

@@ -51,7 +51,7 @@ public class TimeLine : MonoBehaviour
 	#endregion
 
 	#region Methods
-	void FixedUpdate()
+	void Update()
 	{
 		_currentElapsedTime += Time.deltaTime;
 
