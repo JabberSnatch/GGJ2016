@@ -28,7 +28,7 @@ public class PolarCharacter : MonoBehaviour
             PositionInWorldSpace();
     }
 
-    public void Initialize(float _angle, float _offset, Transform _center)
+    public virtual void Initialize(float _angle, float _offset, Transform _center)
     {
         m_Animator = transform.GetChild(0).GetComponentInChildren<Animator>();
 

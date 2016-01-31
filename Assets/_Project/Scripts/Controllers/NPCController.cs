@@ -4,16 +4,16 @@ using System;
 
 public class NPCController : PolarCharacter
 {
-	private bool _inTimePeriod = false;
-	private float _timePeriod = 0.0f;
+	protected bool _inTimePeriod = false;
+    protected float _timePeriod = 0.0f;
 
-	private bool _posing = false;
+    protected bool _posing = false;
 
-    private bool _isRebel = false;
-	private float _detectionRadius = 0.0f;
-    private float _gatesToLive = 0;
+    protected bool _isRebel = false;
+    protected float _detectionRadius = 0.0f;
+    protected float _gatesToLive = 0;
 
-    private InputCombination _expectedCombination;
+    protected InputCombination _expectedCombination;
     public InputCombination ExpectedCombination { get { return _expectedCombination; } }
 
 	private GameObject _inputCombinationGao;
@@ -76,7 +76,7 @@ public class NPCController : PolarCharacter
 
 		_timePeriod -= Time.deltaTime;
 
-        if (_inTimePeriod)
+        if (_inTimePeriod && !_posing)
 		{
             if(_timePeriod <= 0f)
             {
@@ -110,7 +110,7 @@ public class NPCController : PolarCharacter
 			player.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = false;
 	}
 
-	public void ActivatePose(bool instant = false)
+	public virtual void ActivatePose(bool instant = false)
     {
         LookAt(m_WorldCenter.position);
         List<string> poseElements = new List<string>();
@@ -127,7 +127,7 @@ public class NPCController : PolarCharacter
         _posing = true;
     }
 
-    public void DeactivatePose()
+    public virtual void DeactivatePose()
     {
         List<string> poseElements = new List<string>();
 
@@ -167,7 +167,7 @@ public class NPCController : PolarCharacter
     }
 
 	#region Subscribers
-	private void OnTimePeriodStart(InputCombination button, float timePeriod, EventArgs e)
+	protected virtual void OnTimePeriodStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 		_inTimePeriod = true;
         _expectedCombination = button;
@@ -176,9 +176,9 @@ public class NPCController : PolarCharacter
         
         if (_isRebel)
         {
-            _expectedCombination.Randomize();
+            //_expectedCombination.Randomize();
+            Debug.Log("Randomize");
         }
-        
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)
