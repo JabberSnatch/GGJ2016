@@ -70,7 +70,10 @@ public class PlayerRitualController : MonoBehaviour
 		if (keysPressed.Count == 0)
 			keysPressed.Add(EGamePadButton.None);
 
-        // now that I have my combination of keys, I want to compare it to the current InputCombination
+		// now that I have my combination of keys, I want to compare it to the current InputCombination
+		if (!rebelCombination)
+			rebelCombination.Populate(EGamePadButton.None);
+
         if (keysPressed == rebelCombination && _closeToDissident)
 		{
 			Debug.Log("CORRECT COMBINATION");

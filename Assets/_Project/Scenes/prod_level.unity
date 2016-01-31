@@ -425,48 +425,6 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
---- !u!1001 &771613976
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 434106, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &868534255
 Prefab:
   m_ObjectHideFlags: 0
@@ -616,7 +574,7 @@ MonoBehaviour:
   m_Camera: {fileID: 1781959268}
   m_SunLight: {fileID: 740545530}
   m_Leader: {fileID: 868534256}
-  m_PlayerPrefab: {fileID: 180588, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
+  m_PlayerPrefab: {fileID: 153034, guid: 6445a603fa1e4bd418115045376599ee, type: 2}
   m_PlayerSpawnOffset: 85
   m_PlayerSpawnAngle: 93
   m_PlayerMinRadius: 82
