@@ -238,11 +238,10 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void ResetRebelSearch()
     {
-        if (m_Rebel != null)
-            m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
+		if (m_Rebel != null)
+			m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
 
-        m_Rebel.YOLOBringMeBackToLifeSQUAD();
-        m_Rebel = null;
+		m_Rebel = null;
         m_RebelTimer = 0f;
         m_RebelElectionDelay = Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
     }
