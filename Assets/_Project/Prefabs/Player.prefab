@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &103306
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -18,7 +18,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &112750
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -34,7 +34,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &120236
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -140,7 +140,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &140248
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -324,7 +324,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &169196
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -445,6 +445,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &193976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 432910}
+  - 114: {fileID: 11443012}
+  m_Layer: 8
+  m_Name: AudioSamples
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &196056
 GameObject:
   m_ObjectHideFlags: 1
@@ -523,8 +539,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 434106}
-  m_RootOrder: 5
+  m_Father: {fileID: 432910}
+  m_RootOrder: 4
 --- !u!4 &423598
 Transform:
   m_ObjectHideFlags: 1
@@ -561,8 +577,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 434106}
-  m_RootOrder: 3
+  m_Father: {fileID: 432910}
+  m_RootOrder: 2
 --- !u!4 &431922
 Transform:
   m_ObjectHideFlags: 1
@@ -590,6 +606,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 499054}
   m_RootOrder: 0
+--- !u!4 &432910
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 475300}
+  - {fileID: 437778}
+  - {fileID: 429836}
+  - {fileID: 475058}
+  - {fileID: 422114}
+  m_Father: {fileID: 434106}
+  m_RootOrder: 1
 --- !u!4 &434106
 Transform:
   m_ObjectHideFlags: 1
@@ -601,11 +634,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 449480}
-  - {fileID: 475300}
-  - {fileID: 437778}
-  - {fileID: 429836}
-  - {fileID: 475058}
-  - {fileID: 422114}
+  - {fileID: 432910}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &434174
@@ -645,8 +674,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 434106}
-  m_RootOrder: 2
+  m_Father: {fileID: 432910}
+  m_RootOrder: 1
 --- !u!4 &440018
 Transform:
   m_ObjectHideFlags: 1
@@ -772,8 +801,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 434106}
-  m_RootOrder: 4
+  m_Father: {fileID: 432910}
+  m_RootOrder: 3
 --- !u!4 &475300
 Transform:
   m_ObjectHideFlags: 1
@@ -784,8 +813,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 434106}
-  m_RootOrder: 1
+  m_Father: {fileID: 432910}
+  m_RootOrder: 0
 --- !u!4 &480002
 Transform:
   m_ObjectHideFlags: 1
@@ -1289,6 +1318,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1a54e944a8d6442b2e8bc9f14d553a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11443012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3398895f7bdcae34d89aba5b750bae31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nightFallGAO: {fileID: 140248}
+  _sunRisesGAO: {fileID: 120236}
+  _playerInputFailGAO: {fileID: 103306}
+  _playerInputWithRebelGAO: {fileID: 169196}
+  _playerOutcastGAO: {fileID: 112750}
 --- !u!136 &13664528
 CapsuleCollider:
   m_ObjectHideFlags: 1

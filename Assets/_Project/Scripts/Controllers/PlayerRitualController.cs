@@ -78,18 +78,22 @@ public class PlayerRitualController : MonoBehaviour
             EverythingManager.Instance.DeactivateALLPoses();
             LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
 			EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
+			AudioPlayer.Instance.PlayPlayerInputWithRebel();
+
 		}
-        else if (keysPressed == combination)
+		else if (keysPressed == combination)
         {
             Debug.Log("NEUTRAL COMBINATION");
             if (rebelExists)
                 EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Rebel);
-        }
+			AudioPlayer.Instance.PlayPlayerInputFail();
+		}
 		else
 		{
 			Debug.Log("WRONG COMBINATION");
             // trigger booing towards the player
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);
+			AudioPlayer.Instance.PlayPlayerInputFail();
             if (rebelExists)
 				EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
 		}
