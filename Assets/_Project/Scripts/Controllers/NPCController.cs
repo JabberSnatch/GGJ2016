@@ -14,6 +14,7 @@ public class NPCController : PolarCharacter
     private float _gatesToLive = 0;
 
     private InputCombination _expectedCombination;
+    public InputCombination ExpectedCombination { get { return _expectedCombination; } }
 
 	private GameObject _inputCombinationGao;
 
