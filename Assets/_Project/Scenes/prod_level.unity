@@ -535,13 +535,14 @@ MonoBehaviour:
   m_OffsetHalfRange: 5
   m_AngleHalfRange: 20
   m_NPCPerSquareUnit: 0.4
-  m_RebelMinElectionDelay: 0
-  m_RebelMaxElectionDelay: 0
-  m_RitualCountUntilFirstRebel: 0
-  m_RebelMinOffsetFromPlayer: 0
-  m_RebelMinAngleFromPlayer: 0
+  m_RebelMinElectionDelay: 1
+  m_RebelMaxElectionDelay: 2
+  m_RitualCountUntilFirstRebel: 1
+  m_RebelMinOffsetFromPlayer: 12
+  m_RebelMinAngleFromPlayer: 5
   m_RebelDetectionRadius: 2
   m_RebelGatesToLive: 2
+  m_BooDuration: 2.5
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0
