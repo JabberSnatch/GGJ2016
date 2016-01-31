@@ -298,9 +298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762fb3f119c66934b9e57d1626c3f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waitingTimePeriodStart: 2
+  _waitingTimePeriodStart: 1
   _waitingTimePeriodEnd: 4
-  _totalTimeCount: 8
+  _totalTimeCount: 5.5
 --- !u!114 &11411116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,9 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762fb3f119c66934b9e57d1626c3f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waitingTimePeriodStart: 2
-  _waitingTimePeriodEnd: 8
-  _totalTimeCount: 10
+  _waitingTimePeriodStart: 0.5
+  _waitingTimePeriodEnd: 3.5
+  _totalTimeCount: 5
 --- !u!114 &11413974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitingTimePeriodStart: 1
   _waitingTimePeriodEnd: 4
-  _totalTimeCount: 8
+  _totalTimeCount: 5.5
 --- !u!114 &11478852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,9 +388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762fb3f119c66934b9e57d1626c3f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waitingTimePeriodStart: 3
-  _waitingTimePeriodEnd: 4
-  _totalTimeCount: 8
+  _waitingTimePeriodStart: 0.75
+  _waitingTimePeriodEnd: 3.75
+  _totalTimeCount: 5.25
 --- !u!114 &11495396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,9 +402,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762fb3f119c66934b9e57d1626c3f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waitingTimePeriodStart: 6
-  _waitingTimePeriodEnd: 9
-  _totalTimeCount: 10
+  _waitingTimePeriodStart: 1
+  _waitingTimePeriodEnd: 4
+  _totalTimeCount: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
