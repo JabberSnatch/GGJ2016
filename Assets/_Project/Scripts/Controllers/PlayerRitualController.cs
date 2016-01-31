@@ -70,25 +70,23 @@ public class PlayerRitualController : MonoBehaviour
 		if (keysPressed.Count == 0)
 			keysPressed.Add(EGamePadButton.None);
 
-		if (rebelCombination)
+		if (keysPressed == rebelCombination && _closeToDissident)
 		{
-			if (keysPressed == rebelCombination && _closeToDissident)
-			{
-				Debug.Log("CORRECT COMBINATION");
-				EverythingManager.Instance.DeactivateALLPoses();
-				LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
-				EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
-				AudioPlayer.Instance.PlayPlayerInputWithRebel();
-			}
+			Debug.Log("CORRECT COMBINATION");
+			EverythingManager.Instance.DeactivateALLPoses();
+			LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+			EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
+			AudioPlayer.Instance.PlayPlayerInputWithRebel();
 		}
-		if (keysPressed == combination)
+		else if (keysPressed == combination)
         {
             Debug.Log("NEUTRAL COMBINATION");
             if (rebelExists)
                 EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Rebel);
-			AudioPlayer.Instance.PlayPlayerInputFail();
+			if (EverythingManager.Instance.Rebel)
+				AudioPlayer.Instance.PlayPlayerInputFail();
 		}
-		if (keysPressed != combination)
+		else
 		{
 			Debug.Log("WRONG COMBINATION");
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);

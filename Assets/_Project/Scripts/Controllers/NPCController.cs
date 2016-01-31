@@ -28,6 +28,11 @@ public class NPCController : PolarCharacter
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
+
+		GameObject gao = new GameObject();
+		gao.AddComponent<InputCombination>();
+		gao.GetComponent<InputCombination>().Populate(EGamePadButton.None);
+		_expectedCombination = gao.GetComponent<InputCombination>();
 	}
 
     void OnDestroy()
@@ -59,8 +64,7 @@ public class NPCController : PolarCharacter
         _isRebel = true;
 		_gatesToLive = gatesToLive;
 
-		if (_expectedCombination)
-			_expectedCombination = _expectedCombination.Randomize();
+		_expectedCombination = _expectedCombination.Randomize();
 
 		ActivatePose();
 	}

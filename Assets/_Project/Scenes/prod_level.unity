@@ -578,13 +578,8 @@ MonoBehaviour:
   m_PlayerSpawnOffset: 85
   m_PlayerSpawnAngle: 93
   m_PlayerMinRadius: 82
-<<<<<<< HEAD
   m_PlayerMaxRadius: 97
   m_CrowdMinRadius: 83
-=======
-  m_PlayerMaxRadius: 96
-  m_CrowdMinRadius: 85
->>>>>>> origin/master
   m_CrowdMaxRadius: 96
   m_NPCPrefab: {fileID: 163824, guid: ac261a353e066ef4b8b642a8c1824f0e, type: 2}
   m_OffsetHalfRange: 5
