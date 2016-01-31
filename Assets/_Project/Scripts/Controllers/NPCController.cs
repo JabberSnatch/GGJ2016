@@ -52,7 +52,7 @@ public class NPCController : PolarCharacter
 
 		_detectionRadius = detectionRadius;
         _isRebel = true;
-        _gatesToLive = gatesToLive;
+		_gatesToLive = gatesToLive;
 	}
 
 	public void YOLOBringMeBackToLifeSQUAD()
@@ -65,6 +65,8 @@ public class NPCController : PolarCharacter
         _gatesToLive = 0;
 
 		_detectionRadius = 0.0f;
+
+		EverythingManager.Instance.ResetRebelSearch();
 	}
 
 	override protected void Update()
@@ -82,10 +84,7 @@ public class NPCController : PolarCharacter
 		}
 
 		if (_isRebel)
-		{
-			Debug.Log(gameObject.transform.position);
 			CheckForPlayer();
-		}
 	}
 
 	void CheckForPlayer()
@@ -93,29 +92,11 @@ public class NPCController : PolarCharacter
 		RotatingPlayerController player = EverythingManager.Instance.Player;
 
 		Vector3 sub = player.transform.position - gameObject.transform.position;
-		Debug.Log(sub.magnitude);
+
 		if (sub.magnitude <= _detectionRadius)
-			Debug.Log("Yessss");
-
-		//int layerMask = 1 << LayerMask.NameToLayer("Player");
-
-		//Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, _detectionRadius, layerMask);
-
-		//if (colliders.Length != 0)
-		//{
-		//	foreach (Collider col in colliders)
-		//	{
-		//		col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
-		//	}
-		//}
-		//else
-		//{
-		//	foreach (Collider col in colliders)
-		//	{
-		//		col.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = false;
-		//	}
-		//}
-
+			player.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = true;
+		else
+			player.gameObject.GetComponent<PlayerRitualController>().CloseToDissident = false;
 	}
 
 	public void ActivatePose(bool instant = false)
@@ -159,10 +140,10 @@ public class NPCController : PolarCharacter
         _expectedCombination = button;
 		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
 
-        if (_isRebel)
-        {
-            button.Randomize();
-        }
+        //if (_isRebel)
+        //{
+        //    button.Randomize();
+        //}
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)

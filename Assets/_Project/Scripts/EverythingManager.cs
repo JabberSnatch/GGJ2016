@@ -217,7 +217,8 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void ResetRebelSearch()
     {
-        m_Rebel = null;
+        m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
+		m_Rebel = null;
         m_RebelTimer = 0f;
     }
 

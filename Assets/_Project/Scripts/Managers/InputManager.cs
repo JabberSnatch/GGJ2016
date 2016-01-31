@@ -21,7 +21,7 @@ public enum EGamePadButton
 	NbStates
 }
 
-public class Inputs : Singleton<Inputs>
+public class InputManager : Singleton<InputManager>
 {
 	private List<bool> _snapshot = new List<bool>((int)EGamePadButton.NbStates - 1);
 
@@ -108,11 +108,11 @@ public class Inputs : Singleton<Inputs>
 			case 3:
 				return _oldState.Buttons.Y == ButtonState.Pressed;
 			case 4:
-				return _oldState.Buttons.LeftStick == ButtonState.Pressed;
+				return _oldState.Triggers.Left >= 0.8f;
 			case 5:
 				return _oldState.Buttons.LeftShoulder == ButtonState.Pressed;
 			case 6:
-				return _oldState.Buttons.RightStick == ButtonState.Pressed;
+				return _oldState.Triggers.Right >= 0.8f;
 			case 7:
 				return _oldState.Buttons.RightShoulder == ButtonState.Pressed;
 			case 8:
@@ -139,11 +139,11 @@ public class Inputs : Singleton<Inputs>
 			case 3:
 				return _oldState.Buttons.Y == ButtonState.Released;
 			case 4:
-				return _oldState.Buttons.LeftStick == ButtonState.Released;
+				return _oldState.Triggers.Left < 0.8f;
 			case 5:
 				return _oldState.Buttons.LeftShoulder == ButtonState.Released;
 			case 6:
-				return _oldState.Buttons.RightStick == ButtonState.Released;
+				return _oldState.Triggers.Right < 0.8f;
 			case 7:
 				return _oldState.Buttons.RightShoulder == ButtonState.Released;
 			case 8:
@@ -161,6 +161,11 @@ public class Inputs : Singleton<Inputs>
 	{
 		_oldState = GamePad.GetState(PlayerIndex.One);
 		_newState = GamePad.GetState(PlayerIndex.One);
+
+		for (int i = 0; i < _snapshot.Capacity; ++i)
+		{
+			_snapshot.Add(false);
+		}
 	}
 
 	void Update()
@@ -177,12 +182,12 @@ public class Inputs : Singleton<Inputs>
 		_snapshot[1] = _newState.Buttons.B == ButtonState.Pressed ? true : false;
 		_snapshot[2] = _newState.Buttons.X == ButtonState.Pressed ? true : false;
 		_snapshot[3] = _newState.Buttons.Y == ButtonState.Pressed ? true : false;
-		_snapshot[4] = _newState.Buttons.LeftStick == ButtonState.Pressed ? true : false;
-		_snapshot[6] = _newState.Buttons.LeftShoulder == ButtonState.Pressed ? true : false;
-		_snapshot[7] = _newState.Buttons.RightStick == ButtonState.Pressed ? true : false;
-		_snapshot[8] = _newState.Buttons.RightShoulder == ButtonState.Pressed ? true : false;
-		_snapshot[9] = _newState.Buttons.Start == ButtonState.Pressed ? true : false;
-		_snapshot[10] = _newState.Buttons.Back == ButtonState.Pressed ? true : false;
-		_snapshot[11] = _newState.Buttons.Guide == ButtonState.Pressed ? true : false;
+		_snapshot[4] = _newState.Triggers.Left >= 0.8f ? true : false;
+		_snapshot[5] = _newState.Buttons.LeftShoulder == ButtonState.Pressed ? true : false;
+		_snapshot[6] = _newState.Triggers.Right >= 0.8f ? true : false;
+		_snapshot[7] = _newState.Buttons.RightShoulder == ButtonState.Pressed ? true : false;
+		_snapshot[8] = _newState.Buttons.Start == ButtonState.Pressed ? true : false;
+		_snapshot[9] = _newState.Buttons.Back == ButtonState.Pressed ? true : false;
+		_snapshot[10] = _newState.Buttons.Guide == ButtonState.Pressed ? true : false;
 	}
 };

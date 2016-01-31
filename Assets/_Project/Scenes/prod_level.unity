@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 39825486}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: LevelProps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,6 +453,48 @@ Transform:
   - {fileID: 1619617717}
   m_Father: {fileID: 39825486}
   m_RootOrder: 13
+--- !u!1001 &898670701
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 15.061966
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -45.35514
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -9.065222
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478374, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f1a625cf0b83749479534c9ea2428f63, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &940831821
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +541,7 @@ MonoBehaviour:
   m_RebelMinOffsetFromPlayer: 0
   m_RebelMinAngleFromPlayer: 0
   m_RebelDetectionRadius: 2
-  m_RebelGatesToLive: 1
+  m_RebelGatesToLive: 2
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0
@@ -1265,6 +1307,10 @@ Prefab:
     - target: {fileID: 400000, guid: e024d255d3bd4184f87e759f815b6563, type: 3}
       propertyPath: m_LocalScale.z
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e024d255d3bd4184f87e759f815b6563, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e024d255d3bd4184f87e759f815b6563, type: 3}

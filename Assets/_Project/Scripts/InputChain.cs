@@ -20,11 +20,11 @@ public class InputChain : MonoBehaviour
 		_chain[index].Populate(EGamePadButton.None);
 	}
 
-	public void RefreshInputChain(params InputCombination[] inputs)
+	public void RefreshInputChain(params InputCombination[] InputManager)
 	{
 		_chain.Clear();
 		int count = 0;
-		while (count < inputs.Length)
-			_chain.Add(inputs[count]);
+		while (count < InputManager.Length)
+			_chain.Add(InputManager[count]);
 	}
 }
