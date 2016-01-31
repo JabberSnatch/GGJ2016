@@ -202,6 +202,7 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void BooCharacter(PolarCharacter target)
     {
+        Debug.Log("BooCharacter");
         foreach (var npc in m_NPCs)
         {
             if (npc != target)

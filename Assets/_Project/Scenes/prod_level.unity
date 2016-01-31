@@ -542,7 +542,7 @@ MonoBehaviour:
   m_RebelMinAngleFromPlayer: 0
   m_RebelDetectionRadius: 2
   m_RebelGatesToLive: 2
-  m_BooDuration: 0
+  m_BooDuration: 3
 --- !u!4 &940831823
 Transform:
   m_ObjectHideFlags: 0

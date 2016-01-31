@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class InputCombination : MonoBehaviour
 {
     [SerializeField]
-    private List<EGamePadButton> _combination;
+    private List<EGamePadButton> _combination = new List<EGamePadButton>();
 
 	public List<EGamePadButton> Combination
 	{

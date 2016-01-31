@@ -23,7 +23,6 @@ public class PlayerRitualController : MonoBehaviour
 	{
 	}
 
-
 	private void OnTimePeriodStart(InputCombination button, float timePeriod, EventArgs e)
 	{
 
@@ -42,8 +41,10 @@ public class PlayerRitualController : MonoBehaviour
 
 		float currentTimerIndex = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimerIndex;
 		InputCombination combination = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentKeyCombination;
-        InputCombination rebelCombination = null;
-        if (EverythingManager.Instance.Rebel != null)
+
+        InputCombination rebelCombination = new InputCombination();
+        bool rebelExists = EverythingManager.Instance.Rebel != null;
+        if (rebelExists)
             rebelCombination = EverythingManager.Instance.Rebel.ExpectedCombination;
 
 		List<bool> snapshot = InputManager.Instance.Snapshot;
@@ -51,9 +52,7 @@ public class PlayerRitualController : MonoBehaviour
 		List<EGamePadButton> keysPressed = new List<EGamePadButton>();
 
 		for (int i = 0; i < snapshot.Count; ++i)
-		{
 			if (snapshot[i]) keysPressed.Add((EGamePadButton)i);
-		}
 
 		// DEBUG PURPOSE
 		string s = "";
@@ -65,11 +64,11 @@ public class PlayerRitualController : MonoBehaviour
 		s = s.Remove(s.Length - 2);
 		s += "]";
 		Debug.Log(s);
-		////////////////
+        ////////////////
 
-		// TODO
-		// now that I have my combination of keys, I want to compare it to the current InputCombination
-		if (keysPressed == rebelCombination && _closeToDissident)
+        // TODO
+        // now that I have my combination of keys, I want to compare it to the current InputCombination
+        if (keysPressed == rebelCombination && _closeToDissident)
 		{
 			Debug.Log("CORRECT COMBINATION");
 			// reduce the size of the chain and remove that timer from the timeline
@@ -78,12 +77,16 @@ public class PlayerRitualController : MonoBehaviour
         else if (keysPressed == combination)
         {
             Debug.Log("NEUTRAL COMBINATION");
+            if (rebelExists)
+                EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Rebel);
         }
 		else
 		{
 			Debug.Log("WRONG COMBINATION");
             // trigger booing towards the player
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);
+            if (rebelExists)
+                EverythingManager.Instance.ResetRebelSearch();
 		}
 	}
 }
