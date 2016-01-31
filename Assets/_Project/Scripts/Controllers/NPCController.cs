@@ -4,6 +4,9 @@ using System;
 
 public class NPCController : PolarCharacter
 {
+	[SerializeField]
+	private GameObject _mesh;
+
 	protected bool _inTimePeriod = false;
     protected float _timePeriod = 0.0f;
 
@@ -28,9 +31,22 @@ public class NPCController : PolarCharacter
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
+
+		GameObject gao = new GameObject();
+		gao.AddComponent<InputCombination>();
+		gao.GetComponent<InputCombination>().Populate(EGamePadButton.None);
+		_expectedCombination = gao.GetComponent<InputCombination>();
+
+		if (!_mesh.GetComponent<Renderer>())
+			_mesh.AddComponent<Renderer>();
+
+		if (UnityEngine.Random.Range(0, 1) == 0)
+			_mesh.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture>("D_Chara_01");
+		else
+			_mesh.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture>("D_Chara_02");
 	}
 
-    void OnDestroy()
+	void OnDestroy()
     {
 		if (LevelManager.Instance)
 		{
@@ -59,8 +75,7 @@ public class NPCController : PolarCharacter
         _isRebel = true;
 		_gatesToLive = gatesToLive;
 
-		if (_expectedCombination)
-			_expectedCombination = _expectedCombination.Randomize();
+		_expectedCombination = _expectedCombination.Randomize();
 
 		ActivatePose();
 	}
@@ -162,7 +177,6 @@ public class NPCController : PolarCharacter
 
     public void BooOutcastPlayer(RotatingPlayerController player)
     {
-		AudioPlayer.Instance.PlayPlayerOutcast();
 		_booedCharacter = player;
         _booDuration = Mathf.Infinity;
         _booElapsedTime = 0f;
@@ -197,7 +211,8 @@ public class NPCController : PolarCharacter
         if (_isRebel)
         {
             _gatesToLive--;
-			_expectedCombination = _expectedCombination.Randomize();
+			if (_expectedCombination)
+				_expectedCombination = _expectedCombination.Randomize();
             if (_gatesToLive <= 0)
                 YOLOBringMeBackToLifeSQUAD();
         }

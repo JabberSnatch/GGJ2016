@@ -42,7 +42,7 @@ public class PolarCharacter : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(m_LookDirection, Vector3.up);
         m_TargetRotation = transform.rotation;
 
-        m_Initalized = true;
+		m_Initalized = true;
     }
 
     public void PositionInWorldSpace()

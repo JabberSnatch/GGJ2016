@@ -4,6 +4,9 @@ using System;
 
 public class PlayerRitualController : MonoBehaviour
 {
+	[SerializeField]
+	private GameObject _mesh;
+
 	private bool _closeToDissident = false;
 
 	public bool CloseToDissident
@@ -17,6 +20,10 @@ public class PlayerRitualController : MonoBehaviour
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodEnded += OnTimePeriodEnd;
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimerEnded += OnTimerEnd;
+
+		if (!_mesh.GetComponent<Renderer>())
+			_mesh.AddComponent<Renderer>();
+		_mesh.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture>("D_Chara_03");
 	}
 	
 	void Update()
@@ -70,31 +77,25 @@ public class PlayerRitualController : MonoBehaviour
 		if (keysPressed.Count == 0)
 			keysPressed.Add(EGamePadButton.None);
 
-		// now that I have my combination of keys, I want to compare it to the current InputCombination
-		if (!rebelCombination)
-			rebelCombination.Populate(EGamePadButton.None);
-
-        if (keysPressed == rebelCombination && _closeToDissident)
+		if (keysPressed == rebelCombination && _closeToDissident)
 		{
 			Debug.Log("CORRECT COMBINATION");
-            // reduce the size of the chain and remove that timer from the timeline
-            EverythingManager.Instance.DeactivateALLPoses();
-            LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+			EverythingManager.Instance.DeactivateALLPoses();
+			LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
 			EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
 			AudioPlayer.Instance.PlayPlayerInputWithRebel();
-
 		}
 		else if (keysPressed == combination)
         {
             Debug.Log("NEUTRAL COMBINATION");
             if (rebelExists)
                 EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Rebel);
-			AudioPlayer.Instance.PlayPlayerInputFail();
+			if (EverythingManager.Instance.Rebel)
+				AudioPlayer.Instance.PlayPlayerInputFail();
 		}
 		else
 		{
 			Debug.Log("WRONG COMBINATION");
-            // trigger booing towards the player
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);
 			AudioPlayer.Instance.PlayPlayerInputFail();
             if (rebelExists)
