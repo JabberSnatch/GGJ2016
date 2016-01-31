@@ -22,6 +22,8 @@ public class TimeLine : MonoBehaviour
 	public event TimerDefaultHandler TimePeriodEnded;
 	public event TimerDefaultHandler TimerEnded;
 
+	public bool _timeLineIsDone = false;
+
 	private bool _startReached = false;
 	private bool _endReached = false;
 	private bool _gateReached = false;
@@ -62,6 +64,9 @@ public class TimeLine : MonoBehaviour
 	void Update()
 	{
         if (_IsPausedForDayNight) return;
+
+		if (_chain.Completed())
+			_timeLineIsDone = true;
 
 		_currentElapsedTime += Time.deltaTime;
 

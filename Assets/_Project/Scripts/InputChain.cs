@@ -41,6 +41,17 @@ public class InputChain : MonoBehaviour
 		//Debug.Log(s);
 	}
 
+	public bool Completed()
+	{
+		foreach (InputCombination combi in _chain)
+		{
+			if (!(combi.Combination[0] == EGamePadButton.None))
+				return false;
+		}
+
+		return true;
+	}
+
 	public void NullifyCombination(int index)
 	{
 		_chain[index].Populate(EGamePadButton.None);
