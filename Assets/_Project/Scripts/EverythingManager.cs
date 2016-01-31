@@ -242,8 +242,8 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void ResetRebelSearch()
     {
-		if (m_Rebel != null)
-			m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
+		//f (m_Rebel != null)
+			//m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
 
 		m_Rebel = null;
         m_RebelCountdown = UnityEngine.Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
@@ -291,7 +291,7 @@ public class EverythingManager : Singleton<EverythingManager>
             if (m_Rebel == null)
                 m_Rebel = eligiblesNPC[UnityEngine.Random.Range(0, eligiblesNPC.Count - 1)];
 
-            m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(0f, 0f, 0f);
+            //m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(0f, 0f, 0f);
             m_Rebel.YOLOTranscendSQUAD(m_RebelDetectionRadius, m_RebelGatesToLive);
         }
         else
