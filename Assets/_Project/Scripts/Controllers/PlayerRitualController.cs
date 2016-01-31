@@ -37,8 +37,6 @@ public class PlayerRitualController : MonoBehaviour
 	{
 		Debug.Log("Log is on Gate number : " + LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimer);
 
-		Debug.Log("Close enough to Rebel when the Gate happened");
-
 		float currentTimerIndex = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentTimerIndex;
 		InputCombination combination = LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().CurrentKeyCombination;
 
@@ -67,15 +65,19 @@ public class PlayerRitualController : MonoBehaviour
 		s = s.Remove(s.Length - 2);
 		s += "]";
 		Debug.Log(s);
-        ////////////////
+		////////////////
 
-        // TODO
+		if (keysPressed.Count == 0)
+			keysPressed.Add(EGamePadButton.None);
+
         // now that I have my combination of keys, I want to compare it to the current InputCombination
         if (keysPressed == rebelCombination && _closeToDissident)
 		{
 			Debug.Log("CORRECT COMBINATION");
-			// reduce the size of the chain and remove that timer from the timeline
-			LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+            // reduce the size of the chain and remove that timer from the timeline
+            EverythingManager.Instance.DeactivateALLPoses();
+            LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().Chain.NullifyCombination((int)currentTimerIndex);
+			EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
 		}
         else if (keysPressed == combination)
         {
@@ -89,7 +91,7 @@ public class PlayerRitualController : MonoBehaviour
             // trigger booing towards the player
             EverythingManager.Instance.BooCharacter(EverythingManager.Instance.Player);
             if (rebelExists)
-                EverythingManager.Instance.ResetRebelSearch();
+				EverythingManager.Instance.Rebel.YOLOBringMeBackToLifeSQUAD();
 		}
 
         if (!rebelExists)

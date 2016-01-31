@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class CircularArea
 {
@@ -13,6 +14,7 @@ public class EverythingManager : Singleton<EverythingManager>
     public Transform WorldCenter { get { return m_WorldCenter; } }
 
     [SerializeField] private RotatingCameraController   m_Camera;
+    [SerializeField] private Light                      m_SunLight;
 
     [SerializeField] private LeaderNPCController        m_Leader;
 
@@ -56,11 +58,11 @@ public class EverythingManager : Singleton<EverythingManager>
 
     void Awake()
     {
-        m_Leader.Initialize(m_PlayerSpawnAngle, (m_Leader.transform.position - m_WorldCenter.position).magnitude, m_WorldCenter);
-
         Vector3 playerPosition = PolarCharacter.PolarToWorld(m_PlayerSpawnAngle, m_PlayerSpawnOffset, m_WorldCenter.position);
         m_Player = ((GameObject)Instantiate(m_PlayerPrefab, playerPosition, Quaternion.LookRotation(m_WorldCenter.position - playerPosition, Vector3.up))).GetComponent<RotatingPlayerController>();
         m_Player.Initialize(m_PlayerSpawnAngle, m_PlayerSpawnOffset, m_WorldCenter);
+
+        m_Leader.Initialize(m_PlayerSpawnAngle, (m_Leader.transform.position - m_WorldCenter.position).magnitude, m_WorldCenter);
 
         m_Camera.WorldCenter = m_WorldCenter;
         m_Camera.Subject = m_Player;
@@ -236,10 +238,10 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void ResetRebelSearch()
     {
-        if (m_Rebel != null)
-            m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
+		if (m_Rebel != null)
+			m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
 
-        m_Rebel = null;
+		m_Rebel = null;
         m_RebelTimer = 0f;
         m_RebelElectionDelay = Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
     }
@@ -291,5 +293,33 @@ public class EverythingManager : Singleton<EverythingManager>
         }
         else
             Debug.Log("No eligible NPC");
+    }
+
+    public void DeactivateALLPoses()
+    {
+        foreach(var npc in m_NPCs)
+        {
+            npc.DeactivatePose();
+        }
+    }
+
+    public IEnumerator DayNightCycle(TimeLine timeline, float _duration)
+    {
+        float timeStamp = Time.realtimeSinceStartup;
+        float time = 0f;
+        while (time < _duration)
+        {
+            float nextTimeStamp = Time.realtimeSinceStartup;
+            float deltaTime = nextTimeStamp - timeStamp;
+            time += deltaTime;
+            timeStamp = nextTimeStamp;
+            float angleStep = 360f * (deltaTime / _duration);
+
+            m_SunLight.transform.Rotate(Vector3.right, angleStep);
+
+            yield return null;
+        }
+
+        timeline.PauseForDayNight = false;
     }
 }
