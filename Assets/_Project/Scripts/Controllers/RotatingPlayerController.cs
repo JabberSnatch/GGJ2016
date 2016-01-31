@@ -66,6 +66,12 @@ public class RotatingPlayerController : PolarCharacter
 
     private void UpdatePose()
     {
-
+        for (int i = 0; i < (int)EGamePadButton.NbStates; ++i)
+        {
+            if (InputManager.Instance.IsPressed((EGamePadButton)i) && InputManager.Instance.WasReleased((EGamePadButton)i))
+                m_Animator.SetBool(InputCombination.InputToAnimatorField((EGamePadButton)i), true);
+            if (InputManager.Instance.IsReleased((EGamePadButton)i) && InputManager.Instance.WasPressed((EGamePadButton)i))
+                m_Animator.SetBool(InputCombination.InputToAnimatorField((EGamePadButton)i), false);
+        }
     }
 }

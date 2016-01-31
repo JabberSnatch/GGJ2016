@@ -88,6 +88,7 @@ public class NPCController : PolarCharacter
 
         if (_booedCharacter != null && !_posing)
         {
+            m_Animator.SetBool("Pointing", true);
             LookAt(_booedCharacter.transform.position);
             _booElapsedTime += Time.deltaTime;
 
@@ -120,6 +121,7 @@ public class NPCController : PolarCharacter
         {
             SetAnimatorPoseElement(pose, true, instant);
         }
+        m_Animator.SetBool("Pointing", false);
 
         _posing = true;
     }
@@ -158,6 +160,7 @@ public class NPCController : PolarCharacter
 
     public void StopBooing()
     {
+        m_Animator.SetBool("Pointing", false);
         LookAt(m_WorldCenter.position);
         _booedCharacter = null;
     }

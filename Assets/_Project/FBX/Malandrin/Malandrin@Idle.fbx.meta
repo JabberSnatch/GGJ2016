@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 1195c216bb6f9f74e94616bf29449c03
-timeCreated: 1454190452
+guid: 0d266031f13c1c04dbef8a0e74334a00
+timeCreated: 1454206479
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -68,10 +68,13 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'MALANDRIN_Spine3_JNT' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -101,10 +104,282 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
-    human: []
-    skeleton: []
+    human:
+    - boneName: MALANDRIN_Root_JNT
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Leg_JNT
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Leg_JNT
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Knee_JNT
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Knee_JNT
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_Spine1_JNT
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_Spine2_JNT
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_Spine4_JNT
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_Neck_JNT
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Clavicle_JNT
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Clavicle_JNT
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Shoulder_JNT
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Shoulder_JNT
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Elbow_JNT
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Elbow_JNT
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Hand_JNT
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Hand_JNT
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_L_Foot_JNT
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MALANDRIN_R_Foot_JNT
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Malandrin(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_MESH
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_RIG
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Root_JNT
+      position: {x: -0, y: 0.6198243, z: -0.04210015}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Leg_JNT
+      position: {x: -0.15369092, y: -0.049597386, z: -0.00016256147}
+      rotation: {x: 0.99945074, y: -0.028158793, z: 0.0042275363, w: 0.016954469}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Knee_JNT
+      position: {x: 2.0720905e-16, y: 0.26807955, z: -1.8735012e-16}
+      rotation: {x: 0.04595265, y: 0.0009826361, z: -0.0773171, w: 0.9959465}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Foot_JNT
+      position: {x: 5.551115e-17, y: 0.3045781, z: 4.1633363e-17}
+      rotation: {x: 0.9983641, y: 0.04938776, z: 0.0014234099, w: 0.028773956}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Leg_JNT
+      position: {x: 0.153691, y: -0.049597286, z: -0.00016254965}
+      rotation: {x: -0.016954286, y: 0.0042309714, z: 0.028158903, w: 0.99945074}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Knee_JNT
+      position: {x: -0.00000028880314, y: -0.2680794, z: -0.000000040976776}
+      rotation: {x: 0.04595265, y: 0.0009826361, z: -0.0773171, w: 0.9959465}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Foot_JNT
+      position: {x: 0.0000006161055, y: -0.30457827, z: 0.00000005147907}
+      rotation: {x: 0.9983641, y: 0.04938776, z: 0.0014234099, w: 0.028773956}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Spine1_JNT
+      position: {x: -2.913735e-19, y: 0.094050966, z: -0.12844093}
+      rotation: {x: 0.043404017, y: 0, z: -0, w: 0.9990576}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Spine2_JNT
+      position: {x: -5.162989e-18, y: 0.16660514, z: -1.7372848e-18}
+      rotation: {x: -0.061504345, y: 0, z: -0, w: 0.99810684}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Spine3_JNT
+      position: {x: -7.616835e-18, y: 0.24138868, z: -2.4372865e-16}
+      rotation: {x: 0.23634946, y: 0, z: -0, w: 0.9716681}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Clavicle_JNT
+      position: {x: -0.0866761, y: 0.059510708, z: 0.02211867}
+      rotation: {x: 0.4673122, y: -0.3368782, z: 0.47799328, w: 0.6630648}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Shoulder_JNT
+      position: {x: 4.7193678e-17, y: 0.120860964, z: -1.1708808e-16}
+      rotation: {x: 0.12974416, y: -0.63598883, z: 0.109901145, w: 0.7527326}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Elbow_JNT
+      position: {x: -1.0629453e-16, y: 0.2987286, z: -1.4919238e-17}
+      rotation: {x: -0.021654604, y: 0.058785476, z: -0.010127247, w: 0.9979844}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_L_Hand_JNT
+      position: {x: -1.4032091e-16, y: 0.30168065, z: -6.652008e-17}
+      rotation: {x: 0.9217443, y: -0.3816014, z: 0.026412755, w: -0.06379906}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Clavicle_JNT
+      position: {x: 0.0866761, y: 0.05951052, z: 0.022118866}
+      rotation: {x: -0.6630638, y: 0.4779953, z: 0.3368727, w: 0.46731538}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Shoulder_JNT
+      position: {x: 0.00000041946566, y: -0.12086086, z: 0.0000035379092}
+      rotation: {x: 0.12973809, y: -0.63599044, z: 0.109908566, w: 0.7527312}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Elbow_JNT
+      position: {x: -0.0000017360406, y: -0.29872933, z: -0.00000003447757}
+      rotation: {x: -0.02165412, y: 0.05878514, z: -0.010128238, w: 0.9979844}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_R_Hand_JNT
+      position: {x: -0.0000012588777, y: -0.3016814, z: -0.0000001462579}
+      rotation: {x: 0.9217443, y: -0.3816014, z: 0.026412755, w: -0.06379906}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Spine4_JNT
+      position: {x: 1.3071197e-17, y: 0.12490746, z: 4.1633363e-17}
+      rotation: {x: -0.020591706, y: 0, z: -0, w: 0.999788}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Neck_JNT
+      position: {x: -0, y: 0.08984743, z: 6.938894e-18}
+      rotation: {x: -0.13433574, y: 0, z: -0, w: 0.9909359}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MALANDRIN_Head_JNT
+      position: {x: -6.930805e-17, y: 0.41805264, z: -6.006014e-17}
+      rotation: {x: -0.065099314, y: 0, z: -0, w: 0.99787885}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -114,8 +389,9 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7443f017429f7714fb5fea06164d4b8c,
+    type: 3}
+  animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
