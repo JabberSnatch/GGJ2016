@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class CircularArea
 {
@@ -13,6 +14,7 @@ public class EverythingManager : Singleton<EverythingManager>
     public Transform WorldCenter { get { return m_WorldCenter; } }
 
     [SerializeField] private RotatingCameraController   m_Camera;
+    [SerializeField] private Light                      m_SunLight;
 
     [SerializeField] private LeaderNPCController        m_Leader;
 
@@ -239,6 +241,7 @@ public class EverythingManager : Singleton<EverythingManager>
         if (m_Rebel != null)
             m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
 
+        m_Rebel.YOLOBringMeBackToLifeSQUAD();
         m_Rebel = null;
         m_RebelTimer = 0f;
         m_RebelElectionDelay = Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
@@ -298,6 +301,22 @@ public class EverythingManager : Singleton<EverythingManager>
         foreach(var npc in m_NPCs)
         {
             npc.DeactivatePose();
+        }
+    }
+
+    public IEnumerator DayNightCycle(float _duration)
+    {
+        float timeStamp = Time.realtimeSinceStartup;
+        float time = 0f;
+        while (time < _duration)
+        {
+            float nextTimeStamp = Time.realtimeSinceStartup;
+            time += nextTimeStamp - timeStamp;
+            timeStamp = nextTimeStamp;
+
+
+
+            yield return null;
         }
     }
 }
