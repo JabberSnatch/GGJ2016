@@ -64,8 +64,7 @@ public class RotatingCameraController : MonoBehaviour
 
             Vector3 focusPoint = m_WorldCenter.position - targetToCenter * m_FocusPointDistanceToCenter;
             Vector3 lookDirection = focusPoint - m_TargetPosition;
-            Vector3 up = Vector3.Cross(lookDirection, m_Subject.transform.right);
-            transform.rotation = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
         }
     }
 

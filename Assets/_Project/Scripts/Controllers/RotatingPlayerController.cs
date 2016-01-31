@@ -12,19 +12,27 @@ public class RotatingPlayerController : PolarCharacter
     private Vector3 m_Velocity = Vector3.zero;
 
     private GamePadState GPState;
-    private GamePadState OldState;
 
     override protected void Update()
     {
-        OldState = GPState;
         GPState = GamePad.GetState(PlayerIndex.One);
 
         m_TargetVelocity = (Vector3.forward * GPState.ThumbSticks.Left.Y +
-                           Vector3.right * GPState.ThumbSticks.Left.X) * Time.deltaTime;
+                           Vector3.right * GPState.ThumbSticks.Left.X).normalized * Time.deltaTime;
         m_TargetVelocity = m_SpeedIsCapped ? m_TargetVelocity * m_ReducedSpeed : m_TargetVelocity * m_Speed;
 
         m_Velocity = Vector3.Lerp(m_Velocity, m_TargetVelocity, m_DampingFactor);
         BoundZVelocity();
+        if (m_Velocity != Vector3.zero)
+        {
+            m_Animator.SetBool("Walking", true);
+            m_Animator.SetFloat("WalkingMultiplier", m_SpeedIsCapped ? m_ReducedSpeed / m_Speed : 1f);
+        }
+        else
+        {
+            m_Animator.SetBool("Walking", false);
+        }
+        UpdatePose();
 
         float X = m_Velocity.x;
         float Y = m_Velocity.z;
@@ -54,5 +62,10 @@ public class RotatingPlayerController : PolarCharacter
             m_DistanceToCenter = EverythingManager.Instance.MinRadius;
         if (m_DistanceToCenter > EverythingManager.Instance.MaxRadius)
             m_DistanceToCenter = EverythingManager.Instance.MaxRadius;
+    }
+
+    private void UpdatePose()
+    {
+
     }
 }

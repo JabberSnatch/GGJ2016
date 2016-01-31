@@ -5,7 +5,6 @@ using System;
 public class NPCController : PolarCharacter
 {
 	private bool _inTimePeriod = false;
-	private bool _timePeriodEnded = false;
 	private float _timePeriod = 0.0f;
 
 	private bool _posing = false;
@@ -142,7 +141,6 @@ public class NPCController : PolarCharacter
 	private void OnTimePeriodEnd(EventArgs e)
 	{
 		_inTimePeriod = false;
-		_timePeriodEnded = true;
 		_timePeriod = 0.0f;
 	}
 
@@ -150,7 +148,6 @@ public class NPCController : PolarCharacter
 	{
 		// release their state of animations
         DeactivatePose();
-		_timePeriodEnded = false;
 
         if (_isRebel)
         {

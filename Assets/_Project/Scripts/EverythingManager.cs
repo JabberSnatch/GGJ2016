@@ -65,6 +65,8 @@ public class EverythingManager : Singleton<EverythingManager>
         m_LastArea.OffsetMinMax.y = m_CrowdMaxRadius;
 
         PopulateArea(m_LastArea);
+
+        ResetRebelSearch();
     }
 
     void Update()
@@ -149,9 +151,9 @@ public class EverythingManager : Singleton<EverythingManager>
             if (offset < m_CrowdMaxRadius && offset > m_CrowdMinRadius)
             {
                 Vector3 NPCpos = PolarCharacter.PolarToWorld(angle, offset, m_WorldCenter.position);
+                /*
                 Vector3 toCenterDirection = m_WorldCenter.position - NPCpos;
 
-                /*
                 float m_CrowdLateralBias = 5f;
                 
                 Ray neighbourRay = new Ray(NPCpos + Vector3.up * 0.5f, toCenterDirection);
@@ -220,6 +222,7 @@ public class EverythingManager : Singleton<EverythingManager>
     {
         m_Rebel = null;
         m_RebelTimer = 0f;
+        m_RebelElectionDelay = Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
     }
 
     private void RebelUpdateSubroutine()

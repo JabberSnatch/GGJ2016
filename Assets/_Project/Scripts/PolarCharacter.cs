@@ -30,10 +30,7 @@ public class PolarCharacter : MonoBehaviour
 
     public void Initialize(float _angle, float _offset, Transform _center)
     {
-        m_Animator = GetComponent<Animator>();
-        //Sample lines
-        //m_Animator.SetBool("X", false);
-        //m_Animator.SetTrigger("XInstant");
+        m_Animator = transform.GetChild(0).GetComponentInChildren<Animator>();
 
         m_WorldCenter = _center;
         m_Angle = _angle;
