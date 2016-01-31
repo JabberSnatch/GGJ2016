@@ -173,12 +173,12 @@ public class NPCController : PolarCharacter
         _expectedCombination = button;
 		_timePeriod = UnityEngine.Random.Range(0f, timePeriod);
 
-        /*
+        
         if (_isRebel)
         {
             _expectedCombination.Randomize();
         }
-        */
+        
 	}
 
 	private void OnTimePeriodEnd(EventArgs e)

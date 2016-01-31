@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 public class InputCombination : MonoBehaviour
 {
+	static public int GamePadKeyCount = 8;
+
     [SerializeField]
     private List<EGamePadButton> _combination = new List<EGamePadButton>();
+
+	private List<EGamePadButton> _savedCombination = new List<EGamePadButton>();
 
 	public List<EGamePadButton> Combination
 	{
@@ -22,8 +26,49 @@ public class InputCombination : MonoBehaviour
 
     public void Randomize()
     {
-        if (_combination.Count == 2)
-            return;
+		_savedCombination = _combination;
+
+		float seed0, seed1, seed2 = 0.0f;
+
+		if (_savedCombination.Count == 1)
+		{
+			do
+			{
+				seed0 = Random.Range(0, GamePadKeyCount);
+			} while (seed0 == (int)_savedCombination[0]);
+			_combination[0] = (EGamePadButton)seed0;
+		}
+		else if (_savedCombination.Count == 2)
+		{
+			do
+			{
+				seed0 = Random.Range(0, GamePadKeyCount);
+			} while (seed0 == (int)_savedCombination[0]);
+			_combination[0] = (EGamePadButton)seed0;
+			do
+			{
+				seed1 = Random.Range(0, GamePadKeyCount);
+			} while (seed1 == (int)_savedCombination[1]);
+			_combination[1] = (EGamePadButton)seed1;
+		}
+		else if (_savedCombination.Count == 3)
+		{
+			do
+			{
+				seed0 = Random.Range(0, GamePadKeyCount);
+			} while (seed0 == (int)_savedCombination[0]);
+			_combination[0] = (EGamePadButton)seed0;
+			do
+			{
+				seed1 = Random.Range(0, GamePadKeyCount);
+			} while (seed1 == (int)_savedCombination[1]);
+			_combination[1] = (EGamePadButton)seed1;
+			do
+			{
+				seed2 = Random.Range(0, GamePadKeyCount);
+			} while (seed2 == (int)_savedCombination[2]);
+			_combination[1] = (EGamePadButton)seed2;
+		}
     }
 
     public List<string> ToAnimatorGrammar()
