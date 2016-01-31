@@ -25,6 +25,9 @@ public class TimeLine : MonoBehaviour
 	private bool _startReached = false;
 	private bool _endReached = false;
 	private bool _gateReached = false;
+
+    private bool _IsPausedForDayNight = false;
+    public bool PauseForDayNight { get { return _IsPausedForDayNight; } set { _IsPausedForDayNight = value; } }
 	#endregion
 
 
@@ -51,8 +54,15 @@ public class TimeLine : MonoBehaviour
 	#endregion
 
 	#region Methods
+    void Awake()
+    {
+        TimerEnded += EverythingManager.Instance.RebelUpdateSubroutine;
+    }
+
 	void Update()
 	{
+        if (_IsPausedForDayNight) return;
+
 		_currentElapsedTime += Time.deltaTime;
 
 		if (_currentElapsedTime >= CurrentTimer.TotalTimeCount)
@@ -63,6 +73,8 @@ public class TimeLine : MonoBehaviour
             {
                 _currentTimerIndex = 0;
                 LevelManager.Instance.RitualsCount++;
+                _IsPausedForDayNight = true;
+                StartCoroutine(EverythingManager.Instance.DayNightCycle(this, 5f));
             }
 			_currentElapsedTime = CurrentTimer.TotalTimeCount - _currentElapsedTime;
 			_startReached = false;

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+using System;
 
 public class CircularArea
 {
@@ -13,6 +15,7 @@ public class EverythingManager : Singleton<EverythingManager>
     public Transform WorldCenter { get { return m_WorldCenter; } }
 
     [SerializeField] private RotatingCameraController   m_Camera;
+    [SerializeField] private Light                      m_SunLight;
 
     [SerializeField] private LeaderNPCController        m_Leader;
 
@@ -40,16 +43,15 @@ public class EverythingManager : Singleton<EverythingManager>
     private List<NPCController>                         m_NPCs = new List<NPCController>();
     private CircularArea                                m_LastArea = new CircularArea();
 
-    [SerializeField] private float              m_RebelMinElectionDelay;
-    [SerializeField] private float              m_RebelMaxElectionDelay;
+    [SerializeField] private int                m_RebelMinElectionDelay;
+    [SerializeField] private int                m_RebelMaxElectionDelay;
     [SerializeField] private int                m_RitualCountUntilFirstRebel;
     [SerializeField] private float              m_RebelMinOffsetFromPlayer;
     [SerializeField] private float              m_RebelMinAngleFromPlayer;
     [SerializeField] private float              m_RebelDetectionRadius;
     [SerializeField] private int                m_RebelGatesToLive;
     private NPCController                       m_Rebel = null;
-    private float                               m_RebelTimer = 0f;
-    private float                               m_RebelElectionDelay;
+    private int                                 m_RebelCountdown = 0;
     public NPCController Rebel { get { return m_Rebel; } }
 
     [SerializeField] private float              m_BooDuration;
@@ -92,7 +94,6 @@ public class EverythingManager : Singleton<EverythingManager>
             m_LastArea = nextArea;
         }
 
-        RebelUpdateSubroutine();
         BooOutcastPlayer();
     }
 
@@ -151,8 +152,8 @@ public class EverythingManager : Singleton<EverythingManager>
 
         for (int i = 0; i < npcCount; ++i)
         {
-            float angle = Random.Range(_area.AngleMinMax.x, _area.AngleMinMax.y);
-            float offset = Random.Range(_area.OffsetMinMax.x, _area.OffsetMinMax.y);
+            float angle = UnityEngine.Random.Range(_area.AngleMinMax.x, _area.AngleMinMax.y);
+            float offset = UnityEngine.Random.Range(_area.OffsetMinMax.x, _area.OffsetMinMax.y);
 
             if (offset < m_CrowdMaxRadius && offset > m_CrowdMinRadius)
             {
@@ -214,14 +215,18 @@ public class EverythingManager : Singleton<EverythingManager>
 
     private void BooOutcastPlayer()
     {
-        if (Player.Offset > m_CrowdMaxRadius || Player.Offset < m_CrowdMinRadius)
+		if (Player.Offset > m_CrowdMaxRadius || Player.Offset < m_CrowdMinRadius)
         {
             foreach (var npc in m_NPCs)
                 npc.BooOutcastPlayer(m_Player);
 
-            if (!m_PlayerIsOutcast) m_PlayerIsOutcast = true;
-        }
-        else
+			if (!m_PlayerIsOutcast)
+			{
+				m_PlayerIsOutcast = true;
+				AudioPlayer.Instance.PlayPlayerOutcast();
+			}
+		}
+		else
         {
             if (m_PlayerIsOutcast)
             {
@@ -236,22 +241,21 @@ public class EverythingManager : Singleton<EverythingManager>
 
     public void ResetRebelSearch()
     {
-        if (m_Rebel != null)
-            m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
+		if (m_Rebel != null)
+			m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(1f, 1f, 1f);
 
-        m_Rebel = null;
-        m_RebelTimer = 0f;
-        m_RebelElectionDelay = Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
+		m_Rebel = null;
+        m_RebelCountdown = UnityEngine.Random.Range(m_RebelMinElectionDelay, m_RebelMaxElectionDelay);
     }
 
-    private void RebelUpdateSubroutine()
+    public void RebelUpdateSubroutine(EventArgs e)
     {
         if (LevelManager.Instance.RitualsCount < m_RitualCountUntilFirstRebel) return;
 
         if (m_Rebel == null)
         {
-            m_RebelTimer += Time.deltaTime;
-            if (m_RebelTimer > m_RebelElectionDelay)
+            m_RebelCountdown--;
+            if (m_RebelCountdown <= 0)
             {
                 ElectRebel();
             }
@@ -279,12 +283,12 @@ public class EverythingManager : Singleton<EverythingManager>
         {
             for (int i = 0; i < 100 && m_Rebel == null; ++i)
             {
-                m_Rebel = eligiblesNPC[Random.Range(0, eligiblesNPC.Count-1)];
+                m_Rebel = eligiblesNPC[UnityEngine.Random.Range(0, eligiblesNPC.Count-1)];
 
                 m_Rebel = null;
             }
             if (m_Rebel == null)
-                m_Rebel = eligiblesNPC[Random.Range(0, eligiblesNPC.Count - 1)];
+                m_Rebel = eligiblesNPC[UnityEngine.Random.Range(0, eligiblesNPC.Count - 1)];
 
             m_Rebel.GetComponentInChildren<Renderer>().material.color = new Color(0f, 0f, 0f);
             m_Rebel.YOLOTranscendSQUAD(m_RebelDetectionRadius, m_RebelGatesToLive);
@@ -299,5 +303,26 @@ public class EverythingManager : Singleton<EverythingManager>
         {
             npc.DeactivatePose();
         }
+    }
+
+    public IEnumerator DayNightCycle(TimeLine timeline, float _duration)
+    {
+        float timeStamp = Time.realtimeSinceStartup;
+        float time = 0f;
+        yield return new WaitForSeconds(2f);
+        while (time < _duration)
+        {
+            float nextTimeStamp = Time.realtimeSinceStartup;
+            float deltaTime = nextTimeStamp - timeStamp;
+            time += deltaTime;
+            timeStamp = nextTimeStamp;
+            float angleStep = 180f * (deltaTime / _duration);
+
+            m_SunLight.transform.Rotate(Vector3.right, angleStep);
+
+            yield return null;
+        }
+
+        timeline.PauseForDayNight = false;
     }
 }
