@@ -9,7 +9,7 @@ public class NPCController : PolarCharacter
 
     protected bool _posing = false;
 
-    private bool _isRebel = false;
+    protected bool _isRebel = false;
 	public bool IsRebel { get { return _isRebel; } }
 	private float _detectionRadius = 0.0f;
     private float _gatesToLive = 0;
