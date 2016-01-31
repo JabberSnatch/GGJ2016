@@ -17,6 +17,10 @@ public class NPCController : PolarCharacter
 
 	private GameObject _inputCombinationGao;
 
+    private PolarCharacter _booedCharacter = null;
+    private float _booDuration = 0f;
+    private float _booElapsedTime = 0f;
+
 	void Start()
 	{
 		LevelManager.Instance.CurrentTimeline.GetComponent<TimeLine>().TimePeriodStarted += OnTimePeriodStart;
@@ -81,6 +85,15 @@ public class NPCController : PolarCharacter
 
 		if (_isRebel)
 			CheckForPlayer();
+
+        if (_booedCharacter != null && !_posing)
+        {
+            LookAt(_booedCharacter.transform.position);
+            _booElapsedTime += Time.deltaTime;
+
+            if (_booElapsedTime >= _booDuration)
+                StopBooing();
+        }
 	}
 
 	void CheckForPlayer()
@@ -97,6 +110,7 @@ public class NPCController : PolarCharacter
 
 	public void ActivatePose(bool instant = false)
     {
+        LookAt(m_WorldCenter.position);
         List<string> poseElements = new List<string>();
 
         if (_expectedCombination)
@@ -123,6 +137,29 @@ public class NPCController : PolarCharacter
         }
 
         _posing = false;
+    }
+
+    public void BooCharacter(PolarCharacter target, float duration)
+    {
+        if (!EverythingManager.Instance.PlayerIsOutcast)
+        {
+            _booedCharacter = target;
+            _booDuration = duration;
+            _booElapsedTime = 0f;
+        }
+    }
+
+    public void BooOutcastPlayer(RotatingPlayerController player)
+    {
+        _booedCharacter = player;
+        _booDuration = Mathf.Infinity;
+        _booElapsedTime = 0f;
+    }
+
+    public void StopBooing()
+    {
+        LookAt(m_WorldCenter.position);
+        _booedCharacter = null;
     }
 
 	#region Subscribers

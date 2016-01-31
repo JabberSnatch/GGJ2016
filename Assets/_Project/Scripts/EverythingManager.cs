@@ -21,6 +21,7 @@ public class EverythingManager : Singleton<EverythingManager>
     private Vector2                                     m_OldPlayerPos;
     private bool                                        m_PlayerIsOutcast = false;
     public RotatingPlayerController Player { get { return m_Player; } }
+    public bool PlayerIsOutcast { get { return m_PlayerIsOutcast; } }
 
     [SerializeField] private float m_PlayerMinRadius;
     [SerializeField] private float m_PlayerMaxRadius;
@@ -48,6 +49,8 @@ public class EverythingManager : Singleton<EverythingManager>
     private float                               m_RebelTimer = 0f;
     private float                               m_RebelElectionDelay;
     public NPCController Rebel { get { return m_Rebel; } }
+
+    [SerializeField] private float              m_BooDuration;
 
     void Awake()
     {
@@ -183,11 +186,11 @@ public class EverythingManager : Singleton<EverythingManager>
             if (npc.Angle < testArea.AngleMinMax.x || npc.Angle > testArea.AngleMinMax.y ||
                 npc.Offset < testArea.OffsetMinMax.x || npc.Offset > testArea.OffsetMinMax.y)
             {
-                Destroy(npc.gameObject);
-                removeNPCs.Add(npc);
-
-                if (npc == m_Rebel)
-                    m_Rebel = null;
+                if (npc != m_Rebel)
+                {
+                    Destroy(npc.gameObject);
+                    removeNPCs.Add(npc);
+                }
             }
         }
 
@@ -197,12 +200,21 @@ public class EverythingManager : Singleton<EverythingManager>
         }
     }
 
+    public void BooCharacter(PolarCharacter target)
+    {
+        foreach (var npc in m_NPCs)
+        {
+            if (npc != target)
+                npc.BooCharacter(target, m_BooDuration);
+        }
+    }
+
     private void BooOutcastPlayer()
     {
         if (Player.Offset > m_CrowdMaxRadius || Player.Offset < m_CrowdMinRadius)
         {
-            foreach(var npc in m_NPCs)
-                npc.LookAt(Player.transform.position);
+            foreach (var npc in m_NPCs)
+                npc.BooOutcastPlayer(m_Player);
 
             if (!m_PlayerIsOutcast) m_PlayerIsOutcast = true;
         }
@@ -211,7 +223,8 @@ public class EverythingManager : Singleton<EverythingManager>
             if (m_PlayerIsOutcast)
             {
                 foreach (var npc in m_NPCs)
-                    npc.LookAt(m_WorldCenter.position);
+                    npc.StopBooing();
+
                 m_PlayerIsOutcast = false;
             }
         }
